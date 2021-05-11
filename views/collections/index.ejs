@@ -1,23 +1,34 @@
 <%- include('../partials/header.ejs') %>
 
-<h1>Welcome to uCollection</h1>
-<h1>HOLOLIVE</h1>
-<a href='/collection/new'>
-    <button>Add new collection</button>
-</a>
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/nav.css">
+<script type="module" defer src="/javascript/index.js"></script>
+<script type="module" defer src="/javascript/nav.js"></script>
+</head>
+<body>
 
-<% collection.forEach(function(collection){ %>
-    <div class='content'>
-        <div>
-            <img src='<%= collection.image %>'>
-            <h2><%= collection.name %></h2>
-            <h3><%= collection.desc %></h3>
-            <a href='/collection/<%= collection._id %>'>
-                <button>View</button>
-            </a>
-            <button>Edit</button>
+<%- include('../partials/nav.ejs') %>  
+
+<section class="index">
+    <div class="container">
+        <h1>Welcome <%= currentUser.username %>!</h1>
+        <div class="collection">
+            <% collection.forEach(function(collection){ %>
+                <div class='content'>
+                    <div>
+                        <img src='<%= collection.image %>'>
+                        <h2><%= collection.songName %></h2>
+                        <h3><%= collection.artist.artistName %></h3>
+                        <a href='/collection/<%= collection._id %>'>
+                            <button>View</button>
+                        </a>
+                        <button>Edit</button>
+                    </div>
+                </div>  
+            <% }); %>
         </div>
-    </div>  
-<% }); %>
+        <a href='/collection/new'>Add new collection</a>
+    </div>
+</section>
 
 <%- include('../partials/footer.ejs') %>

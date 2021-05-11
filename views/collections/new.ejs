@@ -1,17 +1,30 @@
 <%- include('../partials/header.ejs') %>
 
+<!-- <link rel="stylesheet" href="/css/newCollection.css"> -->
+<link rel="stylesheet" href="/css/nav.css">
+<script type="module" defer src="/javascript/index.js"></script>
+<script type="module" defer src="/javascript/nav.js"></script>
+</head>
+<body>
+
+<%- include('../partials/nav.ejs') %>  
+
 <form action='/collection' method='POST'>
     <div>
-        <label>Character name</label>
-        <input type='text' name='name' placeholder='Enter character name'>
+        <label>Song name</label>
+        <input type='text' name='songName' placeholder='Enter character name'>
     </div>
     <div>
-        <label>Character image</label>
+        <label>Image</label>
         <input type='text' name='image' placeholder='Enter character image url'>
     </div>
     <div>
-        <label>Character description</label>
-        <input type='text' name='desc' placeholder='Enter character description'>
+        <label>Lyric</label>
+        <input type='text' name='lyric' placeholder='Enter character description'>
+    </div>
+    <div>
+        <label>Artist</label>
+        <input type='text' name='artist[artistName]' placeholder='Enter character description'>
     </div>
     <button type="submit">Submit</button>
     <a href='/collection'>Go back</a>

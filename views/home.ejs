@@ -19,26 +19,37 @@
         </div>
         <div class="song-card">
             <ul>
-                <li>
-                    <img class="song-img" src="/images/song-blinding-lights-img.jpg" alt="Song img"/>
-                    <h3>Blinding Lights</h3>
-                    <h4>The weekend</h4>
-                </li>
-                <li>
-                    <img class="song-img" src="/images/song-ite-img.jpg" alt="Song img"/>
-                    <h3>Itte</h3>
-                    <h4>Yorushika</h4>
-                </li>
-                <li>
-                    <img class="song-img" src="/images/song-tunak-img.jpg" alt="Song img"/>
-                    <h3>Tunak Tunak Tun</h3>
-                    <h4>Daler Mehndi</h4>
-                </li>
-                <li>
-                    <img class="song-img" src="/images/song-shelter-img.png" alt="Song img"/>
-                    <h3>Shelter</h3>
-                    <h4>Porter Robinson</h4>
-                </li>
+                <% if(collection.length == 0) { %>
+                    <li>
+                        <img class="song-img" src="/images/song-blinding-lights-img.jpg" alt="Song img"/>
+                        <h3>Blinding Lights</h3>
+                        <h4>The weekend</h4>
+                    </li>
+                    <li>
+                        <img class="song-img" src="/images/song-ite-img.jpg" alt="Song img"/>
+                        <h3>Itte</h3>
+                        <h4>Yorushika</h4>
+                    </li>
+                    <li>
+                        <img class="song-img" src="/images/song-tunak-img.jpg" alt="Song img"/>
+                        <h3>Tunak Tunak Tun</h3>
+                        <h4>Daler Mehndi</h4>
+                    </li>
+                    <li>
+                        <img class="song-img" src="/images/song-shelter-img.png" alt="Song img"/>
+                        <h3>Shelter</h3>
+                        <h4>Porter Robinson</h4>
+                    </li>
+                <% } else { %>        
+                    <% for(let i=0 ; i < collection.length ; i++) { %>
+                        <% if(i == 4) break; %>
+                        <li>
+                            <img class="song-img" src="<%= collection[i].image %>" alt="Song img"/>
+                            <h3><%= collection[i].songName %></h3>
+                            <h4><%= collection[i].artist.artistName %></h4>
+                        </li>
+                    <% } %>  
+                <% } %>
             </ul>
         </div>
     </div>

@@ -1,5 +1,14 @@
 <%- include('../partials/header.ejs') %>
 
+<!-- <link rel="stylesheet" href="/css/newComment.css"> -->
+<link rel="stylesheet" href="/css/nav.css">
+<script type="module" defer src="/javascript/index.js"></script>
+<script type="module" defer src="/javascript/nav.js"></script>
+</head>
+<body>
+
+<%- include('../partials/nav.ejs') %>  
+
 <form action='/collection/<%= collection._id %>/comment' method='POST'>
     <div>
         <label>Comment</label>

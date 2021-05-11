@@ -4,8 +4,6 @@ const   express = require('express'),
         mongoose = require('mongoose'),
         passport = require('passport'),
         LocalStrategy = require('passport-local'),
-        Collection = require('./models/collection'),
-        Comment = require('./models/comment'),
         User = require('./models/user'),
         seedDB = require('./seed');
 

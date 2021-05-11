@@ -33,7 +33,7 @@ section.hero {
 
 .hero-col::before {
     content: "";
-    background: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);
+    background: var(--primary-color);
     position: absolute;
     width: 10px;
     height: 100%;
@@ -74,7 +74,7 @@ section.hero {
 
 .song-card li::before {
     content: "";
-    background: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);
+    background: var(--primary-color);
     position: absolute;
     top: -5px;
     left: -5px;

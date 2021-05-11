@@ -1,9 +1,16 @@
 const mongoose = require('mongoose');
 
 var collectionSchema = new mongoose.Schema({
-    name: String,
+    songName: String,
     image: String,
-    desc: String,
+    lyric: String,
+    artist: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Artist'
+        },
+        artistName: String
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

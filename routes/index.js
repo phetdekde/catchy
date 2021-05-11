@@ -1,10 +1,17 @@
 const   express = require('express'),
         router = express.Router(),
         User = require('../models/user.js'),
-        passport = require('passport');
+        passport = require('passport'),
+        Collection = require('../models/collection.js');
 
 router.get('/', function(req, res){
-    res.render('home.ejs');
+    Collection.find({}, function(err, allCollections){
+        if(err) {
+            console.log(err);
+        } else {
+            res.render('home.ejs', {collection: allCollections});
+        }
+    });
 });
 
 router.get('/register', function(req, res){
