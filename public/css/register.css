@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+:root {
+    --primary-color: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);
+}
+
+body {
+    background-color: rgb(22, 22, 22);
+    margin: 0;
+    font-family: 'Open Sans';
+}
+
+section.register {
+    margin: 2em;
+    padding: 1em 3em;
+    background-color: white;
+    border-radius: 2em;
+}
+
+.logo {
+    font-family: 'Major Mono Display';
+    text-align: center;
+}
+
+.col {
+    /* background-color: teal; */
+    margin-top: 2em;
+}
+
+.col h2 {
+    font-size: 2em;
+}
+
+.col input {
+    width: 100%;
+    height: 2em;
+}
+
+.col .register-btn {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    padding: .5em 1em;
+    font-size: 1.4;
+    border-radius: 5em;
+    font-weight: bold;
+    display: inline-block;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+    section.register {
+        width: 668px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    section.register .container {
+        width: 668px;
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+    section.register {
+        width: 980px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    section.register .container {
+        width: 980px;
+    }
+} 

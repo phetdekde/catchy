@@ -1,0 +1,39 @@
+<%- include('partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/register.css">
+<link rel="stylesheet" href="/css/nav.css">
+<script type="module" defer src="/javascript/nav.js"></script>
+<script type="module" defer src="/javascript/register.js"></script>
+</head>
+<body>
+
+<%- include('partials/nav.ejs') %>
+
+<section class="register">
+    <div class="container">
+        <div class="logo">
+            <h1>cAtchy</h1>
+        </div>
+        <div class="col">
+            <form action='/register' method='POST'>
+                <h2>SIGN UP</h2>
+                <h3>Enter your username</h3>
+                <input type='text' name='username' placeholder='Enter your username'>
+                <h3>Enter your password</h3>
+                <input type='password' name='password' placeholder='Enter your password'>
+                <button class="register-btn" type='submit'>REGISTER</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- <h1>Register</h1>
+<form action='/register' method='POST'>
+    <h3>Username</h3>
+    <input type='text' name='username' placeholder='Enter your username'>
+    <h3>Password</h3>
+    <input type='text' name='password' placeholder='Enter your password'>
+    <button type='submit'>REGISTER</button>
+</form> -->
+
+<%- include('partials/footer.ejs') %>

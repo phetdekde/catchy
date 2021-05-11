@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+:root {
+    --primary-color: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);
+}
+
+body {
+    background-color: rgb(22, 22, 22);
+    margin: 0;
+    font-family: 'Open Sans';
+}
+
+section.login {
+    margin: 2em;
+    padding: 1em 3em;
+    background-color: white;
+    border-radius: 2em;
+}
+
+.logo {
+    font-family: 'Major Mono Display';
+    text-align: center;
+    margin: 0;
+}
+
+.left-col {
+    /* background-color: teal; */
+    margin-top: 2em;
+}
+
+.left-col h2 {
+    font-size: 2em;
+}
+
+.left-col input {
+    width: 100%;
+    height: 2em;
+}
+
+.left-col .login-btn {
+    margin-top: 1.5em;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    padding: .5em 1em;
+    font-size: 1.4;
+    border-radius: 5em;
+    font-weight: bold;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.right-col {
+    position: relative;
+    text-align: center;
+    /* background-color: sandybrown; */
+    margin-top: 4em;
+}
+
+.right-col .register-btn {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    padding: .6em 1.3em;
+    font-size: 1.4;
+    border-radius: 5em;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.right-col::before {
+    content: '';
+    background: var(--primary-color);
+    position: absolute;
+    height: .5em;
+    width: 100%;
+    left: 0;
+    margin-top: -1.6em;
+}
+
+@media only screen and (min-width: 1080px) {
+
+    section.login {
+        width: 980px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    section.login .container {
+        width: 980px;
+    }
+
+    .field {
+        display: flex;
+        margin-bottom: 1em;
+    }
+
+    .left-col {
+        position: relative;
+        width: 55%;
+        margin: 0;
+    }
+
+    .left-col input {
+        width: 90%;
+    }
+
+    .left-col::after {
+        content: '';
+        background: var(--primary-color);
+        position: absolute;
+        margin: 0;
+        height: 100%;
+        width: .5em;
+        top: 0;
+        right: 0;
+    } 
+
+    .right-col::before {
+        display: none;
+    }
+
+    .right-col {
+        position: relative;
+        text-align: right;
+        width: 45%;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .right-col h3 {
+        font-size: 2.2em;
+    }
+    
+    .right-col .register-btn {
+        background: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        padding: .6em 1.3em;
+        font-size: 1.4;
+        border-radius: 5em;
+        font-weight: bold;
+        display: inline-block;
+    }
+}

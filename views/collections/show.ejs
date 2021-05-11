@@ -1,0 +1,21 @@
+<%- include('../partials/header.ejs') %>
+
+<div>
+    <img src='<%= collection.image %>'>
+    <h2><%= collection.name %></h2>
+    <h3><%= collection.desc %></h3>
+    <h4>Submitted by <%= collection.author.username %></h4>
+    <button>Edit</button>
+</div>  
+<div>
+    <a href='/collection/<%= collection._id %>/comment/new'>
+        <button>Create new comment</button>
+    </a>
+    <% collection.comments.forEach(function(comment){ %>
+        <p>
+            <strong><%= comment.author.username %></strong> - <%= comment.text %>
+        </p>
+    <% }); %>
+</div>
+
+<%- include('../partials/footer.ejs') %>
