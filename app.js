@@ -12,7 +12,7 @@ const   collectionRoutes = require('./routes/collections.js'),
         indexRoutes = require('./routes/index.js');
 
 mongoose.connect('mongodb://localhost/uCollectionV3', {useNewUrlParser: true, useUnifiedTopology: true})
-    .then((result) => app.listen(3000, function(){ console.log('Server started'); }))
+    .then((result) => app.listen(14923, function(){ console.log('Server started'); }))
     .catch((err) => console.log(err));    
 
 app.use(express.static('public'));

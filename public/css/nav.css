@@ -51,6 +51,7 @@ nav.menu-btn {
     background: black;
     height: 100vh;
     padding: 1em;
+    box-sizing: border-box;
 }
 
 .mobile-menu-exit {

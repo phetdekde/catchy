@@ -1,6 +1,23 @@
 const   express = require('express'),
         router = express.Router(),
-        Collection = require('../models/collection.js');
+        multer = require('multer'),
+        path = require('path'),
+        storage = multer.diskStorage({
+            destination: function(req, file, callback){
+                callback(null, './public/uploads/');
+            },
+            filename: function(req, file, callback){
+                callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+            }
+        }),
+        imageFilter = function(req, file, callback){
+            if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                return callback(new Error('Only JPG, JPEG, PNG and GIF image files are allowed only!'), false);
+            }
+            callback(null, true);
+        },
+        upload = multer({storage: storage, fileFilter: imageFilter}),
+        Collection = require('../models/collection.js'),
         Artist = require('../models/artist.js');
 
 router.get('/', isLoggedIn, function(req, res){
@@ -13,22 +30,20 @@ router.get('/', isLoggedIn, function(req, res){
     });
 });
 
-router.post('/', isLoggedIn, function(req, res){
-    var songName = req.body.songName;
-    var image = req.body.image;
-    var lyric = req.body.lyric;
-    var artist = req.body.artist;
-    var author = {
+router.post('/', isLoggedIn, upload.single('image'), function(req, res){
+    req.body.collection.image = '/uploads/' + req.file.filename;
+    req.body.collection.author = {
         id: req.user._id,
         username: req.user.username
     };
-    var newCollection = {songName: songName, image: image, lyric: lyric, artist: artist, author: author};
-    Collection.create(newCollection, function(err, newlyCreated){
+
+    Collection.create(req.body.collection, function(err, newlyCreated){
         if(err) {
             console.log(err);
         } else {
+            console.log(newlyCreated);
             Artist.findOneAndUpdate(
-                { artistName: artist.artistName },
+                { artistName: req.body.artist.artistName },
                 { $push: { songs: { id: newlyCreated._id, songName: newlyCreated.songName } } },
                 { upsert: true, new: true },
                 function(err, artistCreated) {
@@ -36,6 +51,7 @@ router.post('/', isLoggedIn, function(req, res){
                         console.log(err);
                     } else {
                         newlyCreated.artist.id = artistCreated._id;
+                        newlyCreated.artist.artistName = artistCreated.artistName;
                         newlyCreated.save();
                         res.redirect('/collection/' + newlyCreated._id);
                     }

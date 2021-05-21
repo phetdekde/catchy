@@ -3,10 +3,12 @@
 
 :root {
     --primary-color: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);
+    --background-color: rgb(22, 22, 22);
+    --surface-color: rgb(46, 45, 45);
 }
 
 body {
-    background-color: rgb(22, 22, 22);
+    background-color: var(--background-color);
     margin: 0;
     font-family: 'Open Sans';
 }
@@ -40,7 +42,7 @@ section.login {
 
 .left-col .login-btn {
     margin-top: 1.5em;
-    background: var(--primary-color);
+    background: var(--surface-color);
     color: white;
     text-decoration: none;
     padding: .5em 1em;
@@ -49,6 +51,10 @@ section.login {
     font-weight: bold;
     display: inline-block;
     cursor: pointer;
+}
+
+.left-col .login-btn:hover {
+    background: var(--primary-color);
 }
 
 .right-col {

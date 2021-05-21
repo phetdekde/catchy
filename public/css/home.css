@@ -3,10 +3,12 @@
 
 :root {
     --primary-color: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);
+    --background-color: rgb(22, 22, 22);
+    --surface-color: rgb(46, 45, 45);
 }
 
 body {
-    background-color: rgb(22, 22, 22);
+    background-color: var(--background-color);
     margin: 0;
     font-family: 'Open Sans';
 }
@@ -17,16 +19,14 @@ section.hero {
 
 .hero-col {
     position: relative;
-    width: 30%;
-    height: 450px;
 }
 
 .hero-col h1 {
     text-align: left;
     z-index: 4;
     position: relative;
-    font-size: 5em;
     color: white;
+    font-size: 3em;
     padding-left: .5em;
     margin-top: 0;
 }
@@ -35,25 +35,31 @@ section.hero {
     content: "";
     background: var(--primary-color);
     position: absolute;
+    bottom: -60px;
     width: 10px;
-    height: 100%;
+    height: calc(100% + 50px);
 }
 
 .hero-btn-small {
-    text-align: center;
+    text-align: right;
     margin-bottom: 3em;
-    margin-top: 3em;
+    margin-top: -1em;
 }
 
 .hero-btn-small .new-acc-btn {
-    background: var(--primary-color);
+    background: var(--surface-color);
     color: white;
     text-decoration: none;
     padding: .6em 1.3em;
-    font-size: 1.4em;
+    font-size: 1em;
     border-radius: 1em;
     font-weight: bold;
     display: inline-block;
+}
+
+.hero-btn-small .new-acc-btn:hover {
+    background: var(--primary-color);
+    color: white;
 }
 
 .hero-btn-large {
@@ -67,7 +73,7 @@ section.hero {
     width: 200px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
     position: relative;
     z-index: 3;
 }
@@ -118,10 +124,21 @@ section.hero {
     margin: 0;
 }
 
-@media only screen and (min-width: 1080px) {
-    body {
-        overflow-x: hidden;
+@media only screen and (min-width: 500px) {
+    .song-card ul {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: left;  
+        gap: 1em;
     }
+    
+    .song-card li {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media only screen and (min-width: 1240px) {
 
     .hero .container {
         display: flex;
@@ -131,27 +148,75 @@ section.hero {
         display: none;
     }
 
+    .hero-col h1 {
+        margin-top: 1em;
+        font-size: 6em;
+    }
+
+    .hero-col::before {
+        bottom: 100px;
+        width: 10px;
+        height: 85%;
+    }
+
     .song-card ul {
         display: flex;
+        flex-flow: row nowrap;
         margin-top: 3em;
-        gap: 2em;
+        grid-gap: 2em;
     }
     
     .hero-btn-large {
         display: block;
-        text-align: center;
-        margin-bottom: 3em;
-        margin-top: 3em;
+        text-align: left;
+        margin-top: 1em;
+    }
+
+    .song-card li {
+        text-align: left;
+        background: var(--primary-color);
+        color: white;
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        z-index: 3;
+    }
+
+    .song-card img {
+        height: 300px;
+        width: 300px;
+        position: relative;
+        z-index: 3;
+        border-radius: 6px;
     }
     
+    .song-card h3 {
+        position: relative;
+        z-index: 3;
+        margin: 0;
+        margin-top: 1em;
+    }
+    
+    .song-card h4 {
+        position: relative;
+        z-index: 3;
+        margin: 0;
+    }
+       
     .hero-btn-large .new-acc-btn {
-        background: var(--primary-color);
+        background: var(--surface-color);
         color: white;
         text-decoration: none;
         padding: .6em 1.3em;
-        font-size: 1.4em;
+        font-size: 2em;
         border-radius: 1em;
         font-weight: bold;
         display: inline-block;
+    }
+
+    .hero-btn-large .new-acc-btn:hover {
+        background: var(--primary-color);
+        color: white;
     }
 } 
