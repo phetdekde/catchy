@@ -1,3 +1,3 @@
 import li from './nav.js';
 
-li[3].classList.add('current');
+li[1].classList.add('current');

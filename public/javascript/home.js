@@ -1,3 +1,6 @@
 import li from './nav.js';
 
-li[0].classList.add('current');
+li.forEach(element => {
+    console.log(element);
+    element.classList.remove('current');
+});

@@ -1,0 +1,31 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/index/home.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/index/player.css">
+<link rel="stylesheet" href="/css/index/showProfile.css">
+<link rel="stylesheet" href="/css/index/showSong.css">
+<link rel="stylesheet" href="/css/index/editSong.css">
+<script type="module" defer src="/javascript/nav.js"></script>
+<script type="module" defer src="/javascript/index.js"></script>
+</head>
+<body>
+
+<%- include('../partials/nav.ejs') %>  
+
+<section id="main" class="main">
+    <% if(url == 'home'){ %>
+        <%- include('collection/home.ejs') %>
+    <% } else if(url == 'newSong') { %>
+        <%- include('collection/new.ejs') %>
+    <% } else if(url == 'showSong') { %>
+        <%- include('collection/show.ejs') %>
+    <% } else if(url == 'editSong') { %>
+        <%- include('collection/edit.ejs') %>
+    <% } else if(url == 'showUser') { %>
+        <%- include('user/show.ejs') %>
+    <% } %>
+</section>
+
+<%- include('../partials/player.ejs') %>
+<%- include('../partials/footer.ejs') %>

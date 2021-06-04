@@ -1,20 +1,27 @@
 <div class="navbar">
     <div class="container">
-        <a class="logo" href='/'>cAtchy</a>
+        <% if(currentUser) { %>
+            <a id='logoHome' class="logo">cAtchy</a>
+        <% } else { %>
+            <a href='/' class="logo">cAtchy</a>
+        <% } %>  
         <img id="mobile-cta" class="mobile-menu" src="/images/menu.svg" alt="Open menu"/>
         <nav>
             <img id="mobile-exit" class="mobile-menu-exit" src="/images/exit.svg" alt="Close menu"/>
             <div class="wrapper-nav">
                 <ul class="primary-nav">
-                    <li><a href='/'>Home</a></li>
-                    <li><a href='/collection'>Collection</a></li>
+                    <% if(currentUser) { %>
+                        <li id='navHome'><p>Home</p></li>
+                        <li id='navPlaylist'><p>Playlist</p></li>
+                        <li id='navSearch'><p>Search</p></li>
+                    <% } %>
                 </ul>
                 <ul class="secondary-nav">
                     <% if(!currentUser) { %>
                         <li id='navLogin'><a href='/login'>Login</a></li>
                         <li id='navRegister'><a href='/register'>Register</a></li>
                     <% } else { %>
-                        <li id='navProfile'><a href='/#'><%= currentUser.username %></a></li>
+                        <li id='navProfile' value='<%= currentUser._id %>'><p><%= currentUser.username %></p></li>
                         <li id='navLogout'><a href='/logout'>Logout</a></li>
                     <% } %>
                 </ul>
@@ -22,4 +29,13 @@
         </nav>
     </div>
 </div>
-
+<% if(error && error.length > 0) { %>
+    <div class="" role="alert" style="background-color: red;">
+        <%= error %>
+    </div>
+<% } %>
+<% if(success && success.length > 0) { %>
+    <div class="" role="alert" style="background-color: green;">
+        <%= success %>
+    </div>
+<% } %>

@@ -1,0 +1,26 @@
+<section class="song">
+    <div class="container">
+        <div>
+            <img src='<%= song.songImg %>'>
+            <h2><%= song.songName %></h2>
+            <h3><%= song.artist.artistName %></h3>
+            <h4>Submitted by <%= song.author.username %></h4>
+            <% if(currentUser && song.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                <button id="editSong" value="<%= song._id %>">Edit</button>
+                <form action = '/song/<%= song._id %>?_method=DELETE' method='POST'>
+                    <button>Delete</button>
+                </form>
+            <% } %>
+        </div>  
+        <div>
+            <a href='/index/<%= song._id %>/comment/new'>
+                <button>Create new comment</button>
+            </a>
+            <% song.comments.forEach(function(comment){ %>
+                <p>
+                    <strong><%= comment.author.username %></strong> - <%= comment.text %>
+                </p>
+            <% }); %>
+        </div>
+    </div>
+</section>

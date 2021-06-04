@@ -1,0 +1,37 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/register.css">
+<link rel="stylesheet" href="/css/nav.css">
+<script type="module" defer src="/javascript/register.js"></script>
+<script type="module" defer src="/javascript/nav.js"></script>
+</head>
+<body>
+
+<%- include('../partials/nav.ejs') %>  
+
+
+<section class="register">
+    <div class="container">
+        <div class="logo">
+            <h1>cAtchy</h1>
+        </div>
+        <div class="col">
+            <form action='/register' method='POST' enctype='multipart/form-data'>
+                <h2>SIGN UP</h2>
+                <h3>Enter your username</h3>
+                <input type='text' name='username' placeholder='Enter your username'>
+                <h3>Enter your password</h3>
+                <input type='password' name='password' placeholder='Enter your password'>
+                <h3>Enter your email</h3>
+                <input type='email' name='email' placeholder='Enter your email'>
+                <h3>Choose your profile picture</h3>
+                <input type='file' name='profileImg' accept='image/*'>
+                <!-- <h3>Enter your admin code</h3>
+                <input type='text' name='adminCode' placeholder='Enter your admin code'> -->
+                <button class="register-btn" type='submit'>REGISTER</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer.ejs') %>  

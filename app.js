@@ -2,6 +2,8 @@ const   express = require('express'),
         app = express(),
         bodyParser = require('body-parser'),
         mongoose = require('mongoose'),
+        flash = require('connect-flash'),
+        methodOverride = require('method-override'),
         passport = require('passport'),
         LocalStrategy = require('passport-local'),
         User = require('./models/user'),
@@ -9,7 +11,10 @@ const   express = require('express'),
 
 const   collectionRoutes = require('./routes/collections.js'),
         commentRoutes = require('./routes/comments.js'),
-        indexRoutes = require('./routes/index.js');
+        homeRoutes = require('./routes/home.js'),
+        userRoutes = require('./routes/users.js'),
+        indexRoutes = require('./routes/index.js'),
+        fetchRoutes = require('./routes/fetch.js');
 
 mongoose.connect('mongodb://localhost/uCollectionV3', {useNewUrlParser: true, useUnifiedTopology: true})
     .then((result) => app.listen(14923, function(){ console.log('Server started'); }))
@@ -18,6 +23,8 @@ mongoose.connect('mongodb://localhost/uCollectionV3', {useNewUrlParser: true, us
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
+app.use(flash());
 // seedDB();
 
 app.use(require('express-session')({
@@ -34,9 +41,14 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
     next();
 });
 
-app.use('/', indexRoutes);
-app.use('/collection', collectionRoutes);
+app.use('/', homeRoutes); // /, /register, /login, /logout
+app.use('/fetch', fetchRoutes);
+app.use('/', indexRoutes); // /home
+app.use('/', collectionRoutes); // /song/:id, /song/new, /song/:id/edit
 app.use('/collection/:id/comment', commentRoutes);
+app.use('/index/user', userRoutes); // /user/:id

@@ -13,7 +13,7 @@ body {
     font-family: 'Open Sans';
 }
 
-section.hero {
+section.home {
     padding: 2em 2em;
 }
 
@@ -140,7 +140,7 @@ section.hero {
 
 @media only screen and (min-width: 1240px) {
 
-    .hero .container {
+    .home .container {
         display: flex;
     }
 
