@@ -29,7 +29,7 @@ router.get('/:id', middleware.isLoggedIn, async function(req, res){
     res.render('index/index.ejs', {url: 'showProfile', user: foundUser, song: favSong});
 });
 
-router.put('/:userId', upload.single('profileImg'), function(req,res ){
+router.put('/:userId', upload.single('profileImg'), function(req,res){
     if(req.file) {
         req.body.user.profileImg = '/uploads/images/' + req.file.filename;
     }
