@@ -5,19 +5,17 @@ var playlistSchema = new mongoose.Schema({
     playlistImg: String,
     song: [
         {
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Song'
-            },
-            songName: String
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Song'
         }
     ],
     author: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        username: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 

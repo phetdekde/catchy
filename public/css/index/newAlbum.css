@@ -1,0 +1,32 @@
+section.newAlbum {
+    margin: 2em;
+    padding: 1em 3em;
+    background-color: white;
+    border-radius: 2em;
+}
+
+.search-input .autocom-box {
+    padding: 0px;
+    max-height: 280px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.search-input.active .autocom-box {
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.autocom-box li {
+    list-style: none;
+    padding: 8px 12px;
+    cursor: default;
+    border-radius: 3px;
+    display: none;
+}
+
+.search-input.active .autocom-box li {
+    display: block;
+}

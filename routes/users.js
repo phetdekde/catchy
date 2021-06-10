@@ -5,7 +5,7 @@ const   express = require('express'),
         passport = require('passport'),
         storage = multer.diskStorage({
             destination: function(req, file, callback){
-                var destPath = './public/uploads/profileImage';
+                var destPath = './public/uploads/images';
                 callback(null, destPath);
             },
             filename: function(req, file, callback){
@@ -19,17 +19,28 @@ const   express = require('express'),
             callback(null, true);
         },
         upload = multer({storage: storage, fileFilter: fileFilter}),
+        middleware = require('../middleware'),
         User = require('../models/user.js'),
         Song = require('../models/song.js');
 
-router.get('/:id', function(req, res){
-    User.findById(req.params.id, function(err, foundUser){
+router.get('/:id', middleware.isLoggedIn, async function(req, res){
+    const foundUser = await User.findById(req.params.id).exec();
+    const favSong = await Song.find({_id: foundUser.favSong}).populate({path: 'artist', models: 'Artist', select: '_id artistName'}).sort({_id: -1}).exec();
+    res.render('index/index.ejs', {url: 'showProfile', user: foundUser, song: favSong});
+});
+
+router.put('/:userId', upload.single('profileImg'), function(req,res ){
+    if(req.file) {
+        req.body.user.profileImg = '/uploads/images/' + req.file.filename;
+    }
+    User.findByIdAndUpdate(req.params.userId, req.body.user, {new: true}, function(err, updatedUser){
         if(err) {
             console.log(err);
         } else {
-            res.render('index/index.ejs', {url: 'showUser', user: foundUser});
+            console.log('==========User updated==========\n' + updatedUser);
+            res.redirect('/user/' + updatedUser._id);
         }
-    })
+    });
 });
 
 module.exports = router;

@@ -1,0 +1,45 @@
+section.show-playlist {
+    margin: 2em;
+    padding: 1em 3em;
+    background-color: white;
+    border-radius: 2em;
+}
+
+.playlist-edit-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 350px;
+    max-width: 80%;
+}
+
+.playlist-edit-panel.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.playlist-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.playlist-header .close-playlist-btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.playlist-edit-field {
+}

@@ -23,7 +23,7 @@ const   express = require('express'),
         Song = require('../models/song.js');
 
 router.get('/', function(req, res){
-    Song.find({}, function(err, allSongs){
+    Song.find({}).populate('artist').exec(function(err, allSongs){
         if(err) {
             console.log(err);
         } else {
@@ -67,8 +67,9 @@ router.post('/login', passport.authenticate('local',
         failureRedirect: '/login',
         failureFlash: true,
         failureFlash: 'Invalid username or password'
-    }), function(req, res){
-});
+    }), 
+    function(req, res){}
+);
 
 router.get('/logout', function(req, res){
     req.logOut();

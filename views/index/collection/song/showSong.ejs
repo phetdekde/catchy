@@ -1,0 +1,23 @@
+<section class="song">
+    <div class="container">
+        <div>
+            <img src='<%= song.songImg %>'>
+            <h2><%= song.songName %></h2>
+            <h3 id="viewArtist" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></h3>
+            <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
+            <button id="favourite" data-id="<%= song._id %>">Favourite</button>
+            <button id="openPlaylistPanel" data-id="<%= song._id %>">Add to playlist</button>
+            <% if(currentUser && currentUser.isPremium || currentUser && currentUser.isAdmin) { %>
+                <a href='<%= song.songFile %>' download>
+                    <button>Download</button>
+                </a>
+            <% } %>
+            <% if(currentUser && currentUser.isAdmin){ %>
+                <button id="editSong" data-id="<%= song._id %>">Edit</button>
+                <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/song/<%= song._id %>?_method=DELETE' method='POST'>
+                    <button>Delete</button>
+                </form>
+            <% } %>
+        </div>  
+    </div>
+</section>

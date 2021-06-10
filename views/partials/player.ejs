@@ -1,7 +1,34 @@
 <section class="player">
     <div class="container">
-        <audio controls>
-            <source src="/songtest/song.mp3" >
-        </audio>
+        <div class="left">
+            <img id="songImg" style="width: 10px; height: 10px">
+            <p id="viewSongInPlayer">song</p>
+            <p id="viewArtistInPlayer">artist</p>
+        </div>
+        <div class="middle">
+            <div class="upper-middle">
+                <button id="prev">
+                    <i class="" aria-hidden="true">PREVIOUS</i>
+                </button>
+                <button id="play">
+                    <i class="class" aria-hidden="true">PLAY</i>
+                </button>
+                <button id="next">
+                    <i class="" aria-hidden="true">NEXT</i>
+                </button>
+            </div>
+            <div class="lower-middle">
+                <input type="range" min="0" max="100" value="0" id="durationSlider">
+            </div>
+            <!-- <audio controls>
+                <source src="/songtest/song.mp3" >
+            </audio> -->
+        </div>
+        <div class="right">
+            <div class="volume">
+                <i class="" arai-hidden="true" id="volumeIcon">MUTE</i>
+                <input type="range" min="0" max="100" value="5" id="volume">
+            </div>
+        </div>
     </div>
 </section>

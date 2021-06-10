@@ -4,3 +4,42 @@ section.profile {
     background-color: white;
     border-radius: 2em;
 }
+
+.profile-edit-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 350px;
+    max-width: 80%;
+}
+
+.profile-edit-panel.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.profile-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.profile-header .close-profile-btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.profile-edit-field {
+}

@@ -6,25 +6,23 @@ var songSchema = new mongoose.Schema({
     lyric: String,
     songFile: String,
     artist: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Artist'
-        },
-        artistName: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Artist'
     },
-    author: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
-        username: String
+    album: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Album'
     },
-    comments: [
+    favBy: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Comment'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
         }
-    ]
+    ],
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 module.exports = mongoose.model('Song', songSchema);

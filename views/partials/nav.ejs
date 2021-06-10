@@ -12,7 +12,7 @@
                 <ul class="primary-nav">
                     <% if(currentUser) { %>
                         <li id='navHome'><p>Home</p></li>
-                        <li id='navPlaylist'><p>Playlist</p></li>
+                        <li id='navPlaylist' data-id='<%= currentUser._id %>'><p>Playlist</p></li>
                         <li id='navSearch'><p>Search</p></li>
                     <% } %>
                 </ul>
@@ -21,6 +21,9 @@
                         <li id='navLogin'><a href='/login'>Login</a></li>
                         <li id='navRegister'><a href='/register'>Register</a></li>
                     <% } else { %>
+                        <% if(currentUser.isPremium == false) { %>
+                            <li id="goPremium"><a href='/premium'>GO PREMIUM</a></li>
+                        <% } %>
                         <li id='navProfile' value='<%= currentUser._id %>'><p><%= currentUser.username %></p></li>
                         <li id='navLogout'><a href='/logout'>Logout</a></li>
                     <% } %>

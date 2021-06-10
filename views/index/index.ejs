@@ -5,25 +5,67 @@
 <link rel="stylesheet" href="/css/index/player.css">
 <link rel="stylesheet" href="/css/index/showProfile.css">
 <link rel="stylesheet" href="/css/index/showSong.css">
+<link rel="stylesheet" href="/css/index/newSong.css">
 <link rel="stylesheet" href="/css/index/editSong.css">
+<link rel="stylesheet" href="/css/index/showArtist.css">
+<link rel="stylesheet" href="/css/index/newArtist.css">
+<link rel="stylesheet" href="/css/index/editArtist.css">
+<link rel="stylesheet" href="/css/index/showAlbum.css">
+<link rel="stylesheet" href="/css/index/newAlbum.css">
+<link rel="stylesheet" href="/css/index/editAlbum.css">
+<link rel="stylesheet" href="/css/index/showPlaylist.css">
 <script type="module" defer src="/javascript/nav.js"></script>
 <script type="module" defer src="/javascript/index.js"></script>
+<script type="module" defer src="/javascript/player.js"></script>
 </head>
 <body>
+<div id='overlay'></div>
+<div class="playlist-panel" id="playlistPanel">
+    <div class="playlist-header">
+        <h1>Playlist</h1>
+        <button id="closePlaylistBtn" class="close-playlist-btn">&times;</button>
+    </div>
+    <div id="playlistList" class="playlist-list">
+        <ul>
 
+        </ul>
+    </div>
+</div>
 <%- include('../partials/nav.ejs') %>  
 
 <section id="main" class="main">
     <% if(url == 'home'){ %>
-        <%- include('collection/home.ejs') %>
+
+    <% } else if(url == 'search') { %>
+        <%- include('collection/search.ejs') %>
+    <% } else if(url == 'showProfile') { %>
+        <%- include('user/showProfile.ejs') %>
+    <% } else if(url == 'showAllPlaylist') { %>
+        <%- include('collection/showAllPlaylist.ejs') %>
+    <% } else if(url == 'showPlaylist') { %>
+        <%- include('collection/showPlaylist.ejs') %>
     <% } else if(url == 'newSong') { %>
-        <%- include('collection/new.ejs') %>
+        <%- include('collection/song/newSong.ejs') %>
     <% } else if(url == 'showSong') { %>
-        <%- include('collection/show.ejs') %>
+        <%- include('collection/song/showSong.ejs') %>
     <% } else if(url == 'editSong') { %>
-        <%- include('collection/edit.ejs') %>
+        <%- include('collection/song/editSong.ejs') %>
     <% } else if(url == 'showUser') { %>
         <%- include('user/show.ejs') %>
+    <% } else if(url == 'newArtist') { %>
+        <%- include('collection/artist/newArtist.ejs') %>
+    <% } else if(url == 'showArtist') { %>
+        <%- include('collection/artist/showArtist.ejs') %>
+    <% } else if(url == 'editArtist') { %>
+        <%- include('collection/artist/editArtist.ejs') %>
+    <% } else if(url == 'newAlbum') { %>
+        <%- include('collection/album/newAlbum.ejs') %>
+    <% } else if(url == 'viewAlbum') { %>
+        <%- include('collection/album/showAlbum.ejs') %>
+    <% } else if(url == 'editAlbum') { %>
+        <%- include('collection/album/editAlbum.ejs') %>
+    <% } else if(url == 'editAlbum') { %>
+        <%- include('collection/album/editAlbum.ejs') %>
     <% } %>
 </section>
 

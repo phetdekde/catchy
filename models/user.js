@@ -10,24 +10,26 @@ var UserSchema = new mongoose.Schema({
         type: Boolean, 
         default: false
     },
+    isPremium: {
+        type: Boolean,
+        default: false
+    },
     favSong: [
         {
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Song'
-            },
-            songName: String
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Song'
         }
     ],
     playlist: [
         {
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Playlist'
-            },
-            playlistName: String
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Playlist'
         }
-    ]
+    ],
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 UserSchema.plugin(passportLocalMongoose);

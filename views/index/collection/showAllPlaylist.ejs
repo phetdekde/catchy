@@ -1,0 +1,31 @@
+<section class="all-playlist">
+    <div class="container">
+        <h4>Submitted by <%= user.username %></h4>
+        <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+            <div>
+                <form action='/playlist' method='POST' enctype="multipart/form-data">
+                    <div>
+                        <label>Playlist name</label>
+                        <input type='text' name='playlist[playlistName]' placeholder='Enter playlist name'>
+                    </div>
+                    <div>
+                        <label>Image</label>
+                        <input type='file' name='playlistImg' accept="image/*">
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        <% } %>
+        <div class="playlist-collection">
+            <% playlist.forEach(function(playlist){ %>
+                <div class='content'>
+                    <div>
+                        <img src='<%= playlist.playlistImg %>'>
+                        <h2 id="viewPlaylist" data-id="<%= playlist._id %>"><%= playlist.playlistName %></h2>
+                        <button id="playOnePlaylist" data-id="<%= playlist._id %>">Play playlist</button>
+                    </div>
+                </div>  
+            <% }); %>
+        </div>
+    </div>
+</section>

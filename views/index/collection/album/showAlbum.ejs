@@ -1,0 +1,22 @@
+<section class="album">
+    <div class="container">
+        <img src='<%= album.albumImg %>'>
+        <h2><%= album.albumName %></h2>
+        <h3 id="viewArtist" data-id="<%= album.artist._id %>"><%= album.artist.artistName %></h2>
+        <button id="playOneAlbum" data-id="<%= album._id %>">Play album</button>
+        <% if(currentUser && currentUser.isAdmin){ %>
+            <button id="editAlbum" data-id="<%= album._id %>">Edit</button>
+            <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/album/<%= album._id %>?_method=DELETE' method='POST'>
+                <button>Delete</button>
+            </form>
+        <% } %>
+        <% album.song.forEach(function(song){ %>
+            <div>
+                <img src='<%= song.songImg %>' style='width: 50px;'>
+                <h2 id="viewSong" data-id="<%= song._id %>"><%= song.songName %></h2>
+                <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
+                <button id="favourite" data-id="<%= song._id %>">Favourite</button>
+            </div>
+        <% }); %>
+    </div>
+</section>

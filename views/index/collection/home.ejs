@@ -1,19 +1,61 @@
 <section class="home">
     <div class="container">
         <h1>Welcome <%= currentUser.username %>!</h1>
+        <% if(currentUser && currentUser.isAdmin){ %>
+            <button id="newArtist">Add new artist</button>
+            <button id="newSong">Add new song</button>
+            <button id="newAlbum">Add new album</button>
+        <% } %>
+        <h2>Song</h2>
         <div class="collection">
             <% song.forEach(function(song){ %>
                 <div class='content'>
                     <div>
                         <img src='<%= song.songImg %>'>
-                        <h2><%= song.songName %></h2>
-                        <h3><%= song.artist.artistName %></h3>
-                        <button id="viewSong" value="<%= song._id %>">View</button>
+                        <h2 id="viewSong" data-id="<%= song._id %>"><%= song.songName %></h2>
+                        <h3 id="viewArtist" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></h3>
+                        <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
+                        <button id="favourite" data-id="<%= song._id %>">Favourite</button>
+                        <button id="openPlaylistPanel" data-id="<%= song._id %>">Add to playlist</button>
                     </div>
                 </div>  
             <% }); %>
         </div>
-        <button id="newSong">Add new song</button>
-        <!-- <a id="newSong" href=''>Add new collection</a> -->
+        <h2>Album</h2>
+        <div class="collection">
+            <% album.forEach(function(album){ %>
+                <div class='content'>
+                    <div>
+                        <img src='<%= album.albumImg %>'>
+                        <h2 id="viewAlbum" data-id="<%= album._id %>"><%= album.albumName %></h2>
+                        <h3 id="viewArtist" data-id="<%= album.artist._id %>"><%= album.artist.artistName %></h3>
+                        <button id="playOneAlbum" data-id="<%= album._id %>">Play album</button>
+                    </div>
+                </div>  
+            <% }); %>
+        </div>
+        <h2>Artist</h2>
+        <div class="collection">
+            <% artist.forEach(function(artist){ %>
+                <div class='content'>
+                    <div>
+                        <img src='<%= artist.artistImg %>'>
+                        <h2 id="viewArtist" data-id="<%= artist._id %>"><%= artist.artistName %></h2>
+                    </div>
+                </div>  
+            <% }); %>
+        </div>
+        <h2>Playlist</h2>
+        <div class="collection">
+            <% playlist.forEach(function(playlist){ %>
+                <div class='content'>
+                    <div>
+                        <img src='<%= playlist.playlistImg %>'>
+                        <h2 id="viewPlaylist" data-id="<%= playlist._id %>"><%= playlist.playlistName %></h2>
+                        <button id="playOnePlaylist" data-id="<%= playlist._id %>">Play playlist</button>
+                    </div>
+                </div>  
+            <% }); %>
+        </div>
     </div>
 </section>

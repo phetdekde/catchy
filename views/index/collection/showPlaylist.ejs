@@ -1,0 +1,55 @@
+<section class="show-playlist">
+    <div class="container">
+        <div class="playlist-info">
+            <img src='<%= playlist.playlistImg %>'>
+            <h2><%= playlist.playlistName %></h2>
+            <h4>Submitted by <%= playlist.author.username %></h4>
+            <button id="playOnePlaylist" data-id="<%= playlist._id %>">Play playlist</button>
+            <% if(currentUser && playlist.author._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                <button id="editPlaylist" data-id="<%= playlist._id %>">Edit</button>
+                <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/playlist/<%= playlist._id %>?_method=DELETE' method='POST'>
+                    <button>Delete</button>
+                </form>
+            <% } %>
+        </div>
+        <div class="song-in-playlist">
+            <% if(playlist.song) { %>
+                <% playlist.song.forEach(function(song){ %>
+                    <div class='content'>
+                        <div>
+                            <img src='<%= song.songImg %>'>
+                            <h2 id="viewSong" data-id="<%= song._id %>"><%= song.songName %></h2>
+                            <h3 id="viewArtist" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></h2>
+                            <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
+                            <% if(currentUser && playlist.author._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                                <button id="deleteSongFromPlaylist" data-id="<%= song._id %>">Delete</button>
+                            <% } %>
+                        </div>
+                    </div>  
+                <% }); %>
+            <% } %>
+        </div>
+        <% if(currentUser && playlist.author._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+            <div class="playlist-edit-panel" id="editPlaylistPanel">
+                <div class="playlist-header">
+                    <h1>Edit Playlist</h1>
+                    <button id="closeEditPlaylistBtn" class="close-playlist-btn">&times;</button>
+                </div>
+                <div id="editPlaylistField" class="playlist-edit-field">
+                    <form action='/playlist/<%= playlist._id %>?_method=PUT' method='POST' enctype="multipart/form-data">
+                        <div>
+                            <label>Playlist name</label>
+                            <input type='text' name='playlist[playlistName]' placeholder='<%= playlist.playlistName %>' value='<%= playlist.playlistName %>'>
+                        </div>
+                        <div>
+                            <label>Image</label>
+                            <img src='<%= playlist.playlistImg %>' width = "300px">
+                            <input type='file' name='playlistImg' accept="image/*">
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</section>

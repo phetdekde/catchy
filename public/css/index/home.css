@@ -8,6 +8,7 @@
 body {
     background-color: rgb(22, 22, 22);
     margin: 0;
+    padding-bottom: 100px;
     font-family: 'Open Sans';
 }
 
@@ -73,4 +74,72 @@ section.home {
 
 .collection .content h3 {
     text-align: left;
+}
+
+.playlist-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: black;
+    width: 350px;
+    max-width: 80%;
+}
+
+.playlist-panel.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.playlist-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.playlist-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.playlist-header .close-playlist-btn {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.playlist-list > * {
+    display: flex;
+    color: white;
+}
+
+.playlist-list img {
+    width: 50px;
+    height: 50px;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 3;
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
 }

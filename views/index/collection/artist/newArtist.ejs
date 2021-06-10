@@ -1,0 +1,16 @@
+<section class="newArtist">
+    <div class="container">
+        <form action='/artist' method='POST' enctype="multipart/form-data">
+            <div>
+                <label>Artist name</label>
+                <input type='text' name='artist[artistName]' placeholder='Enter artist name'>
+            </div>
+            <div>
+                <label>Image</label>
+                <input type='file' name='artistImg' accept="image/*">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</section>
+
