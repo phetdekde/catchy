@@ -1,8 +1,7 @@
 import { fetchViewSong, fetchViewArtist } from './index.js';
 
 const songImg = document.querySelector('#songImg');
-const title = document.querySelector('#viewSongInPlayer');
-const artist = document.querySelector('#viewArtistInPlayer');
+const songInfo = document.querySelector('#songInfo');
 
 const play = document.querySelector('#play');
 play.addEventListener('click', function () {
@@ -35,6 +34,26 @@ async function oneSongLoad(songId) {
     indexNo = 0;
     loadNextSong(song, indexNo);
     playSong();
+    const previous = document.querySelector('#prev');
+    const next = document.querySelector('#next');
+    previous.remove();
+    next.remove();
+    let newPrev = document.createElement('img');
+    newPrev.id = 'prev';
+    newPrev.className = 'prev-btn';
+    newPrev.src = '/images/previous.png';
+    let newNext = document.createElement('img');
+    newNext.id = 'next';
+    newNext.className = 'next-btn';
+    newNext.src = '/images/next.png';
+    play.parentNode.insertBefore(newNext, play.nextSibling);
+    play.parentNode.insertBefore(newPrev, play);
+    newPrev.addEventListener('click', function() {
+        previousSong(song);
+    });
+    newNext.addEventListener('click', function() {
+        nextSong(song);
+    });
 }
 
 async function oneAlbumLoad(albumId) {
@@ -48,12 +67,14 @@ async function oneAlbumLoad(albumId) {
     const next = document.querySelector('#next');
     previous.remove();
     next.remove();
-    let newPrev = document.createElement('button');
+    let newPrev = document.createElement('img');
     newPrev.id = 'prev';
-    newPrev.innerHTML = '<i class="" aria-hidden="true">PREVIOUS</i>';
-    let newNext = document.createElement('button');
+    newPrev.className = 'prev-btn';
+    newPrev.src = '/images/previous.png';
+    let newNext = document.createElement('img');
     newNext.id = 'next';
-    newNext.innerHTML = '<i class="" aria-hidden="true">NEXT</i>';
+    newNext.className = 'next-btn';
+    newNext.src = '/images/next.png';
     play.parentNode.insertBefore(newNext, play.nextSibling);
     play.parentNode.insertBefore(newPrev, play);
     newPrev.addEventListener('click', function() {
@@ -76,12 +97,14 @@ async function onePlaylistLoad(playlistId) {
     const next = document.querySelector('#next');
     previous.remove();
     next.remove();
-    let newPrev = document.createElement('button');
+    let newPrev = document.createElement('img');
     newPrev.id = 'prev';
-    newPrev.innerHTML = '<i class="" aria-hidden="true">PREVIOUS</i>';
-    let newNext = document.createElement('button');
+    newPrev.className = 'prev-btn';
+    newPrev.src = '/images/previous.png';
+    let newNext = document.createElement('img');
     newNext.id = 'next';
-    newNext.innerHTML = '<i class="" aria-hidden="true">NEXT</i>';
+    newNext.className = 'next-btn';
+    newNext.src = '/images/next.png';
     play.parentNode.insertBefore(newNext, play.nextSibling);
     play.parentNode.insertBefore(newPrev, play);
     newPrev.addEventListener('click', function() {
@@ -101,31 +124,31 @@ function loadNextSong(song, indexNo) {
     clearInterval(timer);
     resetSlider();
 
-    title.remove();
-    artist.remove();
+    const title = document.querySelector('#viewSongInPlayer').remove();
+    const artist = document.querySelector('#viewArtistInPlayer').remove();
     let newTitle = document.createElement('p');
     newTitle.id = 'viewSongInPlayer';
+    newTitle.className = 'song-name link';
     newTitle.innerHTML = song[indexNo].songName;
     newTitle.setAttribute('data-id', song[indexNo]._id);
     let newArtist = document.createElement('p');
     newArtist.id = 'viewArtistInPlayer';
+    newArtist.className = 'artist-name link';
     newArtist.innerHTML = song[indexNo].artist.artistName;
     newArtist.setAttribute('data-id', song[indexNo].artist._id);
-    songImg.parentNode.insertBefore(newArtist, songImg.nextSibling);
-    songImg.parentNode.insertBefore(newTitle, songImg.nextSibling);
+    songInfo.appendChild(newTitle);
+    songInfo.appendChild(newArtist);
     newTitle.addEventListener('click', function() {
         fetchViewSong('false', this.getAttribute('data-id'));
     });
     newArtist.addEventListener('click', function() {
         fetchViewArtist('false', this.getAttribute('data-id'));
     });
-
-    // title.innerHTML = song[indexNo].songName;
-    // title.setAttribute('data-id', song[indexNo]._id);
-    // artist.innerHTML = song[indexNo].artist.artistName;
-    // artist.setAttribute('data-id', song[indexNo].artist._id);
+    track.volume = recentVolume.value / 100;
     track.src = song[indexNo].songFile;
     songImg.src = song[indexNo].songImg;
+    songImg.id = 'songImg';
+    songImg.className = 'song-img';
     track.load();
 
     timer = setInterval(function(){rangeSlider(song)}, 1000);
@@ -154,14 +177,16 @@ function justPlay() {
 function playSong() {
     track.play();
     playingSong = true;
-    play.innerHTML = '<i>STOP</i>';
+    play.src = '/images/pause.png';
+    play.className = 'pause-btn';
 }
 
 //pause song
 function pauseSong() {
     track.pause();
     playingSong = false;
-    play.innerHTML = '<i>PLAY</i>';
+    play.src = '/images/play-2.png';
+    play.className = 'play-btn';
 }
 
 //next song

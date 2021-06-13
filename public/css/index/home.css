@@ -3,17 +3,58 @@
 
 :root {
     --primary-color: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);
+    --background-color-dark: rgb(22, 22, 22);
+    --background-color-grey: rgb(41, 41, 41);
+    --text-hover: rgb(156, 156, 156);
 }
 
 body {
     background-color: rgb(22, 22, 22);
     margin: 0;
-    padding-bottom: 100px;
     font-family: 'Open Sans';
+    overflow-x: hidden;
 }
 
-a {
-    text-decoration: none;
+.link:hover {
+    color: var(--text-hover);
+    cursor: pointer;
+}
+
+.play-btn, .add-btn, .fav-btn {
+    filter: invert(1);
+    width: 25px;
+    height: 25px;
+}
+
+.play-btn-big, .add-btn-big, .fav-btn-big, .edit-btn-big, .download-btn-big {
+    filter: invert(1);
+    width: 50px;
+    height: 50px;
+}
+
+.fav-btn-pink {
+    width: 25px;
+    height: 25px; 
+}
+
+.fav-btn-pink-big {
+    width: 50px;
+    height: 50px;
+}
+
+.delete-btn-big {
+    width: 50px;
+    height: 50px;
+}
+
+.play-btn:hover, .add-btn:hover, .fav-btn:hover, .play-btn-big:hover, .add-btn-big:hover, .fav-btn-big:hover, .edit-btn-big:hover, .download-btn-big:hover {
+    filter: invert(50%);
+    cursor: pointer;
+}
+
+.fav-btn-pink:hover, .fav-btn-pink-big:hover, .delete-btn-big:hover {
+    filter: invert(50%);
+    cursor: pointer;
 }
 
 section.home {
@@ -21,125 +62,134 @@ section.home {
     color: white;
 }
 
-.home .container > a {
-    color: white;
-    background: var(--primary-color);
-    border-radius: 1em;
-    padding: .6em 1.3em;
-    margin-top: 1em;
-    display: inline-block
+.home .container > h1 {
+    text-align: right;
+    font-size: 3rem;
+    margin: 0.5rem 0 2rem 0;
 }
 
-.collection {
+.home .container > p {
+    font-size: 2.5rem;
+}
+
+.home .collection  {
     display: flex;
-    flex-flow: row wrap;
-    gap: .5em;
-    margin-top: 2em;
-    justify-content: left;  
-    position: relative;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 5rem;
 }
 
-.collection::before {
-    content: "";
-    background: var(--primary-color);
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    width: calc(100% + 10px);
-    height: calc(100% + 10px);
-    margin-bottom: 1em;
-    z-index: 1;
-    border-radius: 12px;
-}
-
-.collection .content {
-    background-color: rgb(41, 41, 40);
-    width: 200px;
-    text-align: center;
-    padding: 1em;
-    border-radius: 5px;
-    position: relative; 
-    z-index: 2;
-}
-
-.collection .content img {
-    height: 200px;
-    width: 200px;
-    border-radius: 5px;
-}
-
-.collection .content h2 {
-    text-align: left;
-}
-
-.collection .content h3 {
-    text-align: left;
-}
-
-.playlist-panel {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    transition: 200ms ease-in-out;
-    border: 1px solid black;
-    border-radius: 10px;
-    z-index: 10;
-    background-color: black;
-    width: 350px;
-    max-width: 80%;
-}
-
-.playlist-panel.active {
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.playlist-header {
-    padding: 10px 15px;
+.home .collection .content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    background: var(--background-color-grey);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.home .collection .content .song-info {
+    display: flex;
     align-items: center;
-    color: white;
 }
 
-.playlist-header {
-    font-size: 1.25rem;
-    font-weight: bold;
+.home .collection .content .song-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 0.5rem;
 }
 
-.playlist-header .close-playlist-btn {
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background: white;
-    font-size: 1.25rem;
-    font-weight: bold;
+.home .collection .content .song-artist {
+    margin-left: 10px;
+    overflow-x: auto;
 }
 
-.playlist-list > * {
+.home .collection .content .song-artist p:nth-child(1)  {
+    margin: 0;
+    white-space: nowrap;
+    /* overflow: hidden;
+    text-overflow: ellipsis; */
+    font-size: 1.5rem;
+}
+
+.home .collection .content .song-artist p:nth-child(2)  {
+    margin: 0;
+    white-space: nowrap;
+    /* overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+.home .collection .content ul {
     display: flex;
-    color: white;
+    justify-content: flex-end;
+    padding-top: 10px;
 }
 
-.playlist-list img {
-    width: 50px;
-    height: 50px;
+.home .collection .content ul li * {
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-#overlay {
-    position: fixed;
-    opacity: 0;
-    transition: 200ms ease-in-out;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, .4);
-    z-index: 3;
-    pointer-events: none;
+@media only screen and (min-width: 650px) {
+    .home .collection {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .home .collection .content {
+        width: 250px;
+        /* max-width: 275px;
+        min-width: 225px; */
+        /* white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; */
+        /* width:max-content; */
+    }
+
+    .home .collection .content .song-info {
+        flex-direction: column;
+        overflow-x: hidden;
+        /* text-overflow: ellipsis won't work if there is align-items? */
+        align-items: unset;
+        /* width: 250px; */
+    }
+
+    .home .collection .content .song-info img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 150px;
+        height: 150px;
+        padding: 1.5rem;
+    }
+
+    .home .collection .content .song-artist {
+        overflow-x: hidden;
+    }
+
+    .home .collection .content .song-artist p:nth-child(1)  {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .home .collection .content .song-artist p:nth-child(2)  {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
-#overlay.active {
-    opacity: 1;
-    pointer-events: all;
+@media (hover: none) {
+    .link:hover {
+        color: white;
+    }
+
+    .play-btn:hover, .add-btn:hover, .fav-btn:hover, .play-btn-big:hover, .add-btn-big:hover, .fav-btn-big:hover, .edit-btn-big:hover, .download-btn-big:hover {
+        filter: invert(1);
+    }
+    
+    .fav-btn-pink:hover, .fav-btn-pink-big:hover, .delete-btn-big:hover {
+        filter: unset;
+    }
 }

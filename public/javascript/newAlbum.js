@@ -1,13 +1,14 @@
 artistQueryInAlbum();
 
 async function artistQueryInAlbum() {
-    const newArtistPage = document.querySelector('section.newAlbum');
+    const newArtistPage = document.querySelector('#newAlbum');
     const searchWrapper = document.querySelector('#searchInput');
+
+    //artist suggestion function
     if(newArtistPage) {
-        //GET ARTIST LIST
+        //GET ALL ARTIST LIST
         let artist = await getArtist();
         let artistList = [];
-        console.log(artist);
         for (let i = 0; i < artist.length; i++) {
             artistList[i] = artist[i].artistName;
         }
@@ -39,33 +40,45 @@ async function artistQueryInAlbum() {
         });
     }
 
+    //display song that's not in any album from certain artist
     if(newArtistPage) {
         const inputBox = searchWrapper.querySelector('input');
         document.querySelector('#querySong').addEventListener('click', async function(){
             //remove every song first
             deleteAllChild();
             //if inputbox has value
+            const songList = document.querySelector('#songList');
+            let li = document.createElement('li');
             if(inputBox.value) {
                 let song = await getSong(inputBox.value);
                 if(song != 'Artist not found') {
-                    const songList = document.querySelector('#songList');
                     //show every song from the artist
-                    song.forEach(element => {
-                        let checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.name = 'album[song]';
-                        checkbox.value = element._id;
-                        checkbox.id = element.songName;
+                    if(song.length > 0) {
+                        song.forEach(element => {
+                            let checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = 'album[song]';
+                            checkbox.value = element._id;
+                            checkbox.id = element.songName;
+                            let label = document.createElement('label');
+                            label.htmlFor = element.songName;
+                            label.style.marginRight = '1rem';
+                            label.appendChild(document.createTextNode(element.songName));
+                            li.appendChild(checkbox);
+                            li.appendChild(label);
+                            songList.appendChild(li);
+                        });
+                    } else {
                         let label = document.createElement('label');
-                        label.htmlFor = element.songName;
-                        label.appendChild(document.createTextNode(element.songName));
-                        songList.appendChild(checkbox);
-                        songList.appendChild(label);
-                    });
+                        label.appendChild(document.createTextNode("This artist doesn't have any songs or all of them are already in an album"));
+                        li.appendChild(label);
+                        songList.appendChild(li);
+                    }
                 } else {
                     let label = document.createElement('label');
                     label.appendChild(document.createTextNode(song));
-                    songList.appendChild(label);
+                    li.appendChild(label);
+                    songList.appendChild(li);
                 }
             }
         });

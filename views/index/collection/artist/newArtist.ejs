@@ -1,13 +1,13 @@
-<section class="newArtist">
+<section class="add-new">
     <div class="container">
         <form action='/artist' method='POST' enctype="multipart/form-data">
             <div>
                 <label>Artist name</label>
-                <input type='text' name='artist[artistName]' placeholder='Enter artist name'>
+                <input type='text' name='artist[artistName]' placeholder='Enter artist name' required>
             </div>
             <div>
                 <label>Image</label>
-                <input type='file' name='artistImg' accept="image/*">
+                <input type='file' name='artistImg' accept="image/*" required>
             </div>
             <button type="submit">Submit</button>
         </form>

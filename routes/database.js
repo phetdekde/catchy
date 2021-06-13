@@ -34,34 +34,88 @@ router.get('/allPlaylist/:songId', async function(req, res){
     });
 });
 
-router.get('/song/:query', function(req, res){
-    Song.find({songName: {$regex: req.params.query, $options: 'i'}}).limit(10).populate('artist').exec(function(err, foundSong){
-        if(err) {
-            console.log(err);
-        } else {
-            res.json(foundSong);
-        }
-    });
+router.get('/song/:query/:sort', function(req, res){
+    if(req.params.sort === 'alphabet') {
+        Song.find({songName: {$regex: req.params.query, $options: 'i'}})
+        .populate({
+            path: 'artist',
+            model: 'Artist',
+            select: '_id artistName'
+        })
+        .sort({songName: 1})
+        .exec(function(err, foundSong){
+            if(err) {
+                console.log(err);
+            } else {
+                res.render('partials/songSkeleton.ejs', {song: foundSong});
+            }
+        });
+    } else if(req.params.sort === 'date') {
+        Song.find({songName: {$regex: req.params.query, $options: 'i'}})
+        .populate({
+            path: 'artist',
+            model: 'Artist',
+            select: '_id artistName'
+        })
+        .sort({_id: -1})
+        .exec(function(err, foundSong){
+            if(err) {
+                console.log(err);
+            } else {
+                res.render('partials/songSkeleton.ejs', {song: foundSong});
+            }
+        });
+    }
 });
 
-router.get('/artist/:query', function(req, res){
-    Artist.find({artistName: {$regex: req.params.query, $options: 'i'}}).limit(10).exec(function(err, foundArtist){
-        if(err) {
-            console.log(err);
-        } else {
-            res.json(foundArtist);
-        }
-    });
+router.get('/artist/:query/:sort', function(req, res){
+    if(req.params.sort === 'alphabet') {
+        Artist.find({artistName: {$regex: req.params.query, $options: 'i'}})
+        .sort({artistName: 1})
+        .exec(function(err, foundArtist){
+            if(err) {
+                console.log(err);
+            } else {
+                res.render('partials/artistSkeleton.ejs', {artist: foundArtist});
+            }
+        });
+    } else if(req.params.sort === 'date') {
+        Artist.find({artistName: {$regex: req.params.query, $options: 'i'}})
+        .sort({_id: -1})
+        .exec(function(err, foundArtist){
+            if(err) {
+                console.log(err);
+            } else {
+                res.render('partials/artistSkeleton.ejs', {artist: foundArtist});
+            }
+        });
+    }
 });
 
-router.get('/album/:query', function(req, res){
-    Album.find({albumName: {$regex: req.params.query, $options: 'i'}}).limit(10).populate('artist').exec(function(err, foundAlbum){
-        if(err) {
-            console.log(err);
-        } else {
-            res.json(foundAlbum);
-        }
-    });
+router.get('/album/:query/:sort', function(req, res){
+    if(req.params.sort === 'alphabet') {
+        Album.find({albumName: {$regex: req.params.query, $options: 'i'}})
+        .populate('artist')
+        .sort({albumName: 1})
+        .exec(function(err, foundAlbum){
+            if(err) {
+                console.log(err);
+            } else {
+                res.render('partials/albumSkeleton.ejs', {album: foundAlbum});
+            }
+        });
+    } else {
+        Album.find({albumName: {$regex: req.params.query, $options: 'i'}})
+        .populate('artist')
+        .sort({_id: -1})
+        .exec(function(err, foundAlbum){
+            if(err) {
+                console.log(err);
+            } else {
+                res.render('partials/albumSkeleton.ejs', {album: foundAlbum});
+            }
+        });
+    }
 });
 
 router.get('/songByArtistName/:artistName', function(req, res){

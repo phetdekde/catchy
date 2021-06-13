@@ -39,7 +39,11 @@ router.get('/allplaylist/:userId', middleware.isLoggedIn, async function(req, re
 });
 
 router.post('/playlist', upload.single('playlistImg'), function(req, res){
-    req.body.playlist.playlistImg = '/uploads/images/' + req.file.filename;
+    if(req.file) {
+        req.body.playlist.playlistImg = '/uploads/images/' + req.file.filename;
+    } else {
+        req.body.playlist.playlistImg = '/images/logo.jpg';
+    }
     req.body.playlist.author = req.user._id;
     Playlist.create(req.body.playlist, function(err, createdPlaylist){
         if(err) {

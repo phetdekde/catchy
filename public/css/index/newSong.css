@@ -1,6 +1,53 @@
-section.newSong {
-    margin: 2em;
-    padding: 1em 3em;
+section.add-new {
+    padding: 2em 2em;
+    color: white;
+}
+
+.add-new .container form > * {
+    margin-bottom: 2rem;
+}
+
+.add-new .container input[type='text'] {
+    padding: 0.5rem;
+    width: 500px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.search-input .autocom-box {
+    padding: 0px;
+    max-height: 280px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.search-input.active .autocom-box {
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.search-input.active .autocom-box li {
+    color: black;
     background-color: white;
-    border-radius: 2em;
+    border: 1px solid black;
+}
+
+.search-input.active .autocom-box li:hover {
+    cursor: pointer;
+    color: white;
+    background-color: var(--background-color-grey);
+}
+
+.autocom-box li {
+    list-style: none;
+    padding: 8px 12px;
+    cursor: default;
+    border-radius: 3px;
+    display: none;
+}
+
+.search-input.active .autocom-box li {
+    display: block;
 }

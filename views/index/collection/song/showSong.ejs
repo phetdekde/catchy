@@ -1,23 +1,33 @@
 <section class="song">
     <div class="container">
-        <div>
+        <div class="img-left-info-right">
             <img src='<%= song.songImg %>'>
-            <h2><%= song.songName %></h2>
-            <h3 id="viewArtist" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></h3>
-            <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
-            <button id="favourite" data-id="<%= song._id %>">Favourite</button>
-            <button id="openPlaylistPanel" data-id="<%= song._id %>">Add to playlist</button>
-            <% if(currentUser && currentUser.isPremium || currentUser && currentUser.isAdmin) { %>
-                <a href='<%= song.songFile %>' download>
-                    <button>Download</button>
-                </a>
-            <% } %>
-            <% if(currentUser && currentUser.isAdmin){ %>
-                <button id="editSong" data-id="<%= song._id %>">Edit</button>
-                <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/song/<%= song._id %>?_method=DELETE' method='POST'>
-                    <button>Delete</button>
-                </form>
-            <% } %>
-        </div>  
+            <div class="info-right">
+                <p><%= song.songName %></p>
+                <p class="link" id="viewArtist" data-id="<%= song.artist._id %>">by <%= song.artist.artistName %></p>
+                <ul>
+                    <li><img id="playOneSong" class="play-btn-big" data-id="<%= song._id %>" src="/images/play.png" title="Play song"></li>
+                    <li><img id="openPlaylistPanel" class="add-btn-big" data-id="<%= song._id %>" src="/images/add.png" title="Add to playlist"></li>
+                    <% if(currentUser.favSong.includes(song._id)) { %>
+                        <li><img id="favourite" class="fav-btn-pink-big" data-id="<%= song._id %>" src="/images/favourite-pink.png" title="Remove from favourite"></li>
+                    <% } else { %>
+                        <li><img id="favourite" class="fav-btn-big" data-id="<%= song._id %>" src="/images/favourite.png" title="Add to favourite"></li>
+                    <% } %>
+                    <li>
+                        <a href="<%= song.songFile %>" download>
+                            <img class="download-btn-big" src="/images/download.png" title="Download this song">
+                        </a>
+                    </li>
+                    <% if(currentUser && currentUser.isAdmin){ %>
+                        <li><img class="edit-btn-big" id="editSong" data-id="<%= song._id %>" src="/images/edit.png" title="Edit song"></img></li>
+                        <li>
+                            <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/song/<%= song._id %>?_method=DELETE' method='POST'>
+                                <input type="image" class="delete-btn-big" src="/images/delete.png" title="Delete song">
+                            </form>
+                        </li>
+                    <% } %>   
+                </ul> 
+            </div>
+        </div>
     </div>
 </section>

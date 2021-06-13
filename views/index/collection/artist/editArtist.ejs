@@ -1,13 +1,13 @@
-<section class="editArtist">
+<section class="edit">
     <div class="container">
         <form action='/artist/<%= artist._id %>?_method=PUT' method='POST' enctype="multipart/form-data">
             <div>
                 <label>Artist name</label>
-                <input type='text' name='artist[artistName]' placeholder='<%= artist.artistName %>' value='<%= artist.artistName %>'>
+                <input type='text' name='artist[artistName]' placeholder='<%= artist.artistName %>' value='<%= artist.artistName %>' required>
             </div>
             <div>
-                <label>Image</label>
-                <img src='<%= artist.artistImg %>' width = "300px">
+                <p>Image</p>
+                <img src='<%= artist.artistImg %>'>
                 <input type='file' name='artistImg' accept="image/*">
             </div>
             <button type="submit">Submit</button>

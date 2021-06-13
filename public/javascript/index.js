@@ -68,8 +68,18 @@ async function fetchMyDocument() {
                 onePlaylistLoad(this.getAttribute('data-id'));
             });   
         });
-        document.querySelectorAll('#favourite').forEach(elem => {
+        const favBtn = document.querySelectorAll('#favourite');
+        favBtn.forEach(elem => {
             elem.addEventListener('click', function(){
+                favBtn.forEach(btn => {
+                    if(btn.className == 'fav-btn' && btn.getAttribute('data-id') == elem.getAttribute('data-id')) {
+                        btn.className = 'fav-btn-pink';
+                        btn.src = '/images/favourite-pink.png';
+                    } else if (btn.className != 'fav-btn' && btn.getAttribute('data-id') == elem.getAttribute('data-id')){
+                        btn.className = 'fav-btn';
+                        btn.src = '/images/favourite.png';
+                    }
+                })
                 updateFavourite(this.getAttribute('data-id'));
             })
         });
@@ -143,6 +153,13 @@ async function fetchViewSong(isPopState, value) {
             openPlaylistPanel(this.getAttribute('data-id'));
         });
         document.querySelector('#favourite').addEventListener('click', function(){
+            if(this.className == 'fav-btn-big') {
+                this.className = 'fav-btn-pink-big';
+                this.src = '/images/favourite-pink.png';
+            } else {
+                this.className = 'fav-btn-big';
+                this.src = '/images/favourite.png';
+            }
             updateFavourite(this.getAttribute('data-id'));
         });
         if(isPopState == 'false')
@@ -180,6 +197,13 @@ async function fetchViewArtist(isPopState, value) {
         });
         document.querySelectorAll('#favourite').forEach(elem => {
             elem.addEventListener('click', function(){
+                if(this.className == 'fav-btn') {
+                    this.className = 'fav-btn-pink';
+                    this.src = '/images/favourite-pink.png';
+                } else {
+                    this.className = 'fav-btn';
+                    this.src = '/images/favourite.png';
+                }
                 updateFavourite(this.getAttribute('data-id'));
             })
         });
@@ -236,6 +260,13 @@ async function fetchViewAlbum(isPopState, value) {
         });
         document.querySelectorAll('#favourite').forEach(elem => {
             elem.addEventListener('click', function(){
+                if(this.className == 'fav-btn') {
+                    this.className = 'fav-btn-pink';
+                    this.src = '/images/favourite-pink.png';
+                } else {
+                    this.className = 'fav-btn';
+                    this.src = '/images/favourite.png';
+                }
                 updateFavourite(this.getAttribute('data-id'));
             })
         });
@@ -307,24 +338,24 @@ async function openPlaylistPanel(songId) {
             let li = document.createElement('li');
             let img = document.createElement('img');
             img.src = playlist.playlistImg;
-            let h2 = document.createElement('h2');
-            h2.setAttribute('data-id', playlist._id);
-            h2.innerHTML = playlist.playlistName;
-            h2.className = 'playlist-li';
+            let p = document.createElement('p');
+            p.setAttribute('data-id', playlist._id);
+            p.innerHTML = playlist.playlistName;
+            p.className = 'playlist-li';
             li.appendChild(img);
-            li.appendChild(h2);
+            li.appendChild(p);
             playlistField.appendChild(li);
             li.addEventListener('click', function(){
-                updatePlaylist(songId, h2.getAttribute('data-id'));
+                updatePlaylist(songId, p.getAttribute('data-id'));
             })
         });
         if(playlist.length == 0) {
             let li = document.createElement('li');
-            let h2 = document.createElement('h2');
-            h2.setAttribute('data-id', playlist._id);
-            h2.innerHTML = 'No playlist found or all of your playlist already contain this song.';
-            h2.className = 'playlist-li';
-            li.appendChild(h2);
+            let p = document.createElement('p');
+            p.setAttribute('data-id', playlist._id);
+            p.innerHTML = 'No playlist found or all of your playlist already contain this song.';
+            p.className = 'playlist-li';
+            li.appendChild(p);
             playlistField.appendChild(li);
         }
     } catch (err) {
@@ -423,6 +454,23 @@ function addAllListener() {
     if(favourite) {
         favourite.forEach(elem => {
             elem.addEventListener('click', function(){
+                if(this.className == 'fav-btn' || this.className == 'fav-btn-pink') {
+                    if(this.className == 'fav-btn') {
+                        this.className = 'fav-btn-pink';
+                        this.src = '/images/favourite-pink.png';
+                    } else {
+                        this.className = 'fav-btn';
+                        this.src = '/images/favourite.png';
+                    }
+                } else {
+                    if(this.className == 'fav-btn-big') {
+                        this.className = 'fav-btn-pink-big';
+                        this.src = '/images/favourite-pink.png';
+                    } else {
+                        this.className = 'fav-btn-big';
+                        this.src = '/images/favourite.png';
+                    }
+                }
                 updateFavourite(this.getAttribute('data-id'));
             });   
         });
@@ -451,7 +499,7 @@ function addAllListener() {
     if(openPlaylistPanelBtn) {
         openPlaylistPanelBtn.forEach(elem => {
             elem.addEventListener('click', function(){
-                openPlaylistPanel();
+                openPlaylistPanel(this.getAttribute('data-id'));
             });
         });
     }
@@ -463,7 +511,8 @@ function addAllListener() {
 }
 
 window.onpopstate = function(e) {
-    // alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+    // alert("location: " + document.location + ", state: " + JSON.stringify(event.state))
+    
     if(e.state == null) {
         fetchMyDocument('true');
     } else {

@@ -9,18 +9,27 @@ function search() {
         const inputField = searchPage.querySelector('#inputField');
         const searchField = inputField.querySelector('input');
         const searchBtn = inputField.querySelector('#searchBtn');
+        const typeSelect = inputField.querySelector('#type');
+        const sortSelect = inputField.querySelector('#sort');
         const outputField = searchPage.querySelector('#outputField');
         const songField = outputField.querySelector('#song');
         const artistField = outputField.querySelector('#artist');
         const albumField = outputField.querySelector('#album');
 
         searchBtn.addEventListener('click', async function(){
-            deleteAllChild(songField, artistField, albumField);
+            // deleteAllChild(songField, artistField, albumField);
             if(searchField.value) {
-                let song = await getSong(searchField.value);
-                let artist = await getArtist(searchField.value);
-                let album = await getAlbum(searchField.value);
-                createAllElement(song, artist, album, songField, artistField, albumField);
+                if(typeSelect.value == 'song') {
+                    await getSong(searchField.value, sortSelect.value);            
+                } else if(typeSelect.value == 'album') {
+                    await getAlbum(searchField.value, sortSelect.value);       
+                } else if(typeSelect.value == 'artist') {
+                    await getArtist(searchField.value, sortSelect.value);       
+                } else {
+                    await getSong(searchField.value, sortSelect.value);  
+                    await getArtist(searchField.value, sortSelect.value);    
+                    await getAlbum(searchField.value, sortSelect.value);   
+                }
                 addAllListener();
             }
         });
@@ -57,6 +66,13 @@ function addAllListener() {
     });
     document.querySelectorAll('#favourite').forEach(elem => {
         elem.addEventListener('click', function(){
+            if(this.className == 'fav-btn') {
+                this.className = 'fav-btn-pink';
+                this.src = '/images/favourite-pink.png';
+            } else {
+                this.className = 'fav-btn';
+                this.src = '/images/favourite.png';
+            }
             updateFavourite(this.getAttribute('data-id'));
         })
     });
@@ -77,92 +93,34 @@ function addAllListener() {
     });
 }
 
-function createAllElement(song, artist, album, songField, artistField, albumField) {
-    song.forEach(element => {
-        let newDiv = document.createElement('div');
-        let img = document.createElement('img');
-        img.src = element.songImg;
-        let h2 = document.createElement('h2');
-        h2.id = 'viewSong';
-        h2.setAttribute('data-id', element._id);
-        h2.innerHTML = element.songName;
-        let h3 = document.createElement('h3');
-        h3.id = 'viewArtist';
-        h3.setAttribute('data-id', element.artist._id);
-        h3.innerHTML = element.artist.artistName;
-
-        let playBtn = document.createElement('button');
-        playBtn.id = 'playOneSong';
-        playBtn.setAttribute('data-id', element._id);
-        playBtn.innerHTML = 'Play song';
-        let favBtn = document.createElement('button');
-        favBtn.id = 'favourite';
-        favBtn.setAttribute('data-id', element._id);
-        favBtn.innerHTML = 'Favourite';
-        let addToPlaylistBtn = document.createElement('button');
-        addToPlaylistBtn.id = 'openPlaylistPanel';
-        addToPlaylistBtn.setAttribute('data-id', element._id);
-        addToPlaylistBtn.innerHTML = 'Add to playlist';
-
-        newDiv.appendChild(img);
-        newDiv.appendChild(h2);
-        newDiv.appendChild(h3);
-        newDiv.appendChild(playBtn);
-        newDiv.appendChild(favBtn);
-        newDiv.appendChild(addToPlaylistBtn);
-        songField.appendChild(newDiv);
-    });
-    artist.forEach(element => {
-        let newDiv = document.createElement('div');
-        let img = document.createElement('img');
-        img.src = element.artistImg;
-        let h2 = document.createElement('h2');
-        h2.id = 'viewArtist';
-        h2.setAttribute('data-id', element._id);
-        h2.innerHTML = element.artistName;
-        newDiv.appendChild(img);
-        newDiv.appendChild(h2);
-        artistField.appendChild(newDiv);
-    });
-    album.forEach(element => {
-        let newDiv = document.createElement('div');
-        let img = document.createElement('img');
-        img.src = element.albumImg;
-        let h2 = document.createElement('h2');
-        h2.id = 'viewAlbum';
-        h2.setAttribute('data-id', element._id);
-        h2.innerHTML = element.albumName;
-        let h3 = document.createElement('h3');
-        h3.id = 'viewArtist';
-        h3.setAttribute('data-id', element.artist._id);
-        h3.innerHTML = element.artist.artistName;
-
-        let playBtn = document.createElement('button');
-        playBtn.id = 'playOneAlbum';
-        playBtn.setAttribute('data-id', element._id);
-        favBtn.innerHTML = 'Play album';
-
-        newDiv.appendChild(img);
-        newDiv.appendChild(h2);
-        newDiv.appendChild(h3);
-        newDiv.appendChild(playBtn);
-        albumField.appendChild(newDiv);
-    });
+async function getSong(value, sort) {
+    try {
+        let response = await fetch('/fetch/database/song/' + value + '/' + sort); 
+        document.querySelector('#song').innerHTML = '';
+        document.querySelector('#song').innerHTML = await response.text(); 
+    } catch {
+        console.log('Fetch error:' + err); 
+    }                 
 }
 
-async function getSong(value) {
-    let data = await fetch('/fetch/database/song/' + value);
-    return await data.json();
+async function getArtist(value, sort) {
+    try {
+        let response = await fetch('/fetch/database/artist/' + value + '/' + sort); 
+        document.querySelector('#artist').innerHTML = '';
+        document.querySelector('#artist').innerHTML = await response.text(); 
+    } catch {
+        console.log('Fetch error:' + err); 
+    }                 
 }
 
-async function getArtist(value) {
-    let data = await fetch('/fetch/database/artist/' + value);
-    return await data.json();
-}
-
-async function getAlbum(value) {
-    let data = await fetch('/fetch/database/album/' + value);
-    return await data.json();
+async function getAlbum(value, sort) {
+    try {
+        let response = await fetch('/fetch/database/album/' + value + '/' + sort); 
+        document.querySelector('#album').innerHTML = '';
+        document.querySelector('#album').innerHTML = await response.text(); 
+    } catch {
+        console.log('Fetch error:' + err); 
+    }                 
 }
 
 export { search }

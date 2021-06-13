@@ -36,11 +36,8 @@ li.forEach(elem => {
 
 async function fetchHome() {      
     try {
-        let response = await fetch('/fetch/home'); 
-        document.querySelector('#main').innerHTML = '';
-        document.querySelector('#main').innerHTML = await response.text(); 
-        history.pushState(null, null, '/home');
         fetchMyDocument();
+        history.pushState(null, null, '/home');
     } catch (err) {
         console.log('Fetch error:' + err); 
     }
@@ -148,6 +145,13 @@ async function fetchProfile(isPopState, value) {
         });
         document.querySelectorAll('#favourite').forEach(elem => {
             elem.addEventListener('click', function(){
+                if(this.className == 'fav-btn') {
+                    this.className = 'fav-btn-pink';
+                    this.src = '/images/favourite-pink.png';
+                } else {
+                    this.className = 'fav-btn';
+                    this.src = '/images/favourite.png';
+                }
                 updateFavourite(this.getAttribute('data-id'));
             })
         });

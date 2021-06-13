@@ -81,7 +81,12 @@ router.get('/:id', middleware.isLoggedIn, function(req, res){
         {
             path: 'song', 
             model: 'Song',
-            select: '_id songName songImg'
+            select: '_id songName songImg',
+            populate: {
+                path: 'artist',
+                model: 'Artist',
+                select: '_id artistName'
+            }
         },
         {
             path: 'artist', 

@@ -1,0 +1,23 @@
+<p>Song</p>
+<div class="collection">
+    <% song.forEach(function(song){ %>
+        <div class='content'>
+            <div class="song-info">
+                <img src='<%= song.songImg %>'>
+                <div class="song-artist">
+                    <p id="viewSong" class="link" data-id="<%= song._id %>"><%= song.songName %></p>
+                    <p id="viewArtist" class="link" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></p>
+                </div>
+            </div>
+            <ul>
+                <li><img id="playOneSong" class="play-btn" data-id="<%= song._id %>" src="/images/play.png"></li>
+                <li><img id="openPlaylistPanel" class="add-btn" data-id="<%= song._id %>" src="/images/add.png"></li>
+                <% if(currentUser.favSong.includes(song._id)) { %>
+                    <li><img id="favourite" class="fav-btn-pink" data-id="<%= song._id %>" src="/images/favourite-pink.png"></li>
+                <% } else { %>
+                    <li><img id="favourite" class="fav-btn" data-id="<%= song._id %>" src="/images/favourite.png"></li>
+                <% } %>
+            </ul>
+        </div>  
+    <% }); %>
+</div>

@@ -1,26 +1,42 @@
 <section class="profile">
     <div class="container">
-        <h1><%= user.username %></h1>
-        <img src='<%= user.profileImg %>' width='300px'>
-        <h3><%= user.email %></h3>
-        <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-            <button id="editProfile" data-id="<%= user._id %>">Edit</button>
-            <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/user/<%= user._id %>?_method=DELETE' method='POST'>
-                <button>Delete</button>
-            </form>
-        <% } %>
+        <div class="img-left-info-right">
+            <img src='<%= user.profileImg %>'>
+            <div class="info-right">
+                <p><%= user.username %></p>
+                <p><%= user.email %></p>
+                <ul>
+                    <% if(currentUser && user._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                        <li><img class="edit-btn-big" id="editProfile" data-id="<%= user._id %>" src="/images/edit.png" title="Edit profile"></li> 
+                        <li>
+                            <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/user/<%= user._id %>?_method=DELETE' method='POST'>
+                                <input type="image" class="delete-btn-big" src="/images/delete.png" title="Delete playlist">
+                            </form>
+                        </li>
+                    <% } %>
+                </ul> 
+            </div>
+        </div>     
         <h2>Favourite</h2>
         <div class="collection">
             <% song.forEach(function(song){ %>
                 <div class='content'>
-                    <div>
+                    <div class="song-info">
                         <img src='<%= song.songImg %>'>
-                        <h2 id="viewSong" data-id="<%= song._id %>"><%= song.songName %></h2>
-                        <h3 id="viewArtist" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></h3>
-                        <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
-                        <button id="favourite" data-id="<%= song._id %>">Favourite</button>
-                        <button id="openPlaylistPanel" data-id="<%= song._id %>">Add to playlist</button>
+                        <div class="song-artist">
+                            <p id="viewSong" class="link" data-id="<%= song._id %>"><%= song.songName %></p>
+                            <p id="viewArtist" class="link" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></p>
+                        </div>
                     </div>
+                    <ul>
+                        <li><img id="playOneSong" class="play-btn" data-id="<%= song._id %>" src="/images/play.png"></li>
+                        <li><img id="openPlaylistPanel" class="add-btn" data-id="<%= song._id %>" src="/images/add.png"></li>
+                        <% if(currentUser.favSong.includes(song._id)) { %>
+                            <li><img id="favourite" class="fav-btn-pink" data-id="<%= song._id %>" src="/images/favourite-pink.png"></li>
+                        <% } else { %>
+                            <li><img id="favourite" class="fav-btn" data-id="<%= song._id %>" src="/images/favourite.png"></li>
+                        <% } %>
+                    </ul>
                 </div>  
             <% }); %>
         </div>
@@ -34,16 +50,16 @@
                     <form action='/user/<%= user._id %>?_method=PUT' method='POST' enctype="multipart/form-data">
                         <div>
                             <label>Username</label>
-                            <input type='text' name='user[username]' placeholder='<%= user.username %>' value='<%= user.username %>'>
+                            <input type='text' name='user[username]' placeholder='<%= user.username %>' value='<%= user.username %>' required>
+                        </div>
+                        <div>
+                            <label>Email</label>
+                            <input type='text' name='user[email]' placeholder='<%= user.email %>' value='<%= user.email %>' required>
                         </div>
                         <div>
                             <label>Image</label>
                             <img src='<%= user.profileImg %>' width = "300px">
                             <input type='file' name='profileImg' accept="image/*">
-                        </div>
-                        <div>
-                            <label>Email</label>
-                            <input type='text' name='user[email]' placeholder='<%= user.email %>' value='<%= user.email %>'>
                         </div>
                         <button type="submit">Submit</button>
                     </form>

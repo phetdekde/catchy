@@ -8,11 +8,17 @@ const   express = require('express'),
         Playlist = require('../models/playlist.js');
 
 router.get('/home', middleware.isLoggedIn, async function(req, res){
-    const allSong = await Song.find({}).populate({path: 'artist', models: 'Artist', select: '_id artistName'}).sort({_id: -1}).exec();
-    const allArtist = await Artist.find({}).sort({_id: -1}).exec();
-    const allAlbum = await Album.find({}).populate({path: 'artist', models: 'Artist', select: '_id artistName'}).sort({_id: -1}).exec();
-    const allPlaylist = await Playlist.find({}).sort({_id: -1}).exec();
-    res.render('index/collection/home.ejs', {song: allSong, artist: allArtist, album: allAlbum, playlist: allPlaylist});
+    const allSong = await Song.find({}).limit(10).populate({path: 'artist', models: 'Artist', select: '_id artistName'}).sort({_id: -1}).exec();
+    const allArtist = await Artist.find({}).limit(10).sort({_id: -1}).exec();
+    const allAlbum = await Album.find({}).limit(10).populate({path: 'artist', models: 'Artist', select: '_id artistName'}).sort({_id: -1}).exec();
+    const allPlaylist = await Playlist.find({author: req.user._id}).limit(10).sort({_id: -1}).exec();
+    const mostFavSong = await Song.aggregate([
+        {$project: {songName: 1, songImg: 1, artist: 1, count : {$size: '$favBy'}}},
+        {$lookup: {from: 'artists', localField: 'artist', foreignField: '_id', as: 'artistName'}},
+        {$sort: {count: -1}},
+        {$limit: 10}
+    ]).exec();
+    res.render('index/collection/home.ejs', {song: allSong, artist: allArtist, album: allAlbum, playlist: allPlaylist, mostFavSong: mostFavSong});
 });
 
 router.get('/search', middleware.isLoggedIn, function(req, res){
@@ -136,7 +142,12 @@ router.get('/album/:id', middleware.isLoggedIn, function(req, res){
         {
             path: 'song', 
             model: 'Song',
-            select: '_id songName songImg'
+            select: '_id songName songImg',
+            populate: {
+                path: 'artist',
+                model: 'Artist',
+                select: '_id artistName'
+            }
         },
         {
             path: 'artist',

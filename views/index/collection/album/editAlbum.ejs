@@ -1,13 +1,13 @@
 <script type="module" defer src="/javascript/editAlbum.js"></script>
-<section class="editAlbum">
+<section class="edit">
     <div class="container">
         <form action='/album/<%= album._id %>?_method=PUT' method='POST' enctype="multipart/form-data">
             <div>
                 <label>Album name</label>
-                <input type='text' name='album[albumName]' placeholder='<%= album.albumName %>' value='<%= album.albumName %>'>
+                <input type='text' name='album[albumName]' placeholder='<%= album.albumName %>' value='<%= album.albumName %>' required>
             </div>
             <div>
-                <label>Image</label>
+                <p>Image</p>
                 <img src='<%= album.albumImg %>' width = "300px">
                 <input type='file' name='albumImg' accept="image/*">
             </div>

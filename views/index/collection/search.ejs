@@ -1,18 +1,40 @@
 <script type="module" defer src="/javascript/search.js"></script>
 <section class="search">
     <div class="container">
-        <section id="inputField" class="">
-            <input type='text' name='query' placeholder='Search'>
-            <button id='searchBtn'>Search</button>
+        <section id="inputField" class="input-field">
+            <div class="search-field">
+                <input type='text' name='query' placeholder='Search'>
+            </div>
+            <div class="options">
+                <div class="first">
+                    <label for="type">Seach</label>
+                    <select name="type" id="type">
+                        <option value="all">All</option>
+                        <option value="song">Song</option>
+                        <option value="album">Album</option>
+                        <option value="artist">Artist</option>
+                    </select>
+                </div>
+                <div class="second">
+                    <label for="sort">Sort by</label>
+                    <select name="sort" id="sort">
+                        <option value="alphabet">Alphabet</option>
+                        <option value="date">Date added</option>
+                    </select>
+                </div>
+                <div class="third">
+                    <button id='searchBtn'>Search</button>
+                </div>
+            </div>
         </section>
-        <section id="outputField" class="">
-            <div id="song" class="song">
+        <section id="outputField" class="output-field">
+            <div id="song" class="collection">
 
             </div>
-            <div id="artist" class="artist">
+            <div id="artist" class="collection">
 
             </div>
-            <div id="album" class="album">
+            <div id="album" class="collection">
 
             </div>
         </section>

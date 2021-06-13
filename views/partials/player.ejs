@@ -1,34 +1,25 @@
 <section class="player">
     <div class="container">
         <div class="left">
-            <img id="songImg" style="width: 10px; height: 10px">
-            <p id="viewSongInPlayer">song</p>
-            <p id="viewArtistInPlayer">artist</p>
+            <img id="songImg" class="song-img">
+                <div id="songInfo" class="song-info">
+                    <p id="viewSongInPlayer" class="song-name link"></p>
+                    <p id="viewArtistInPlayer" class="artist-name link"></p>
+                </div>
         </div>
         <div class="middle">
             <div class="upper-middle">
-                <button id="prev">
-                    <i class="" aria-hidden="true">PREVIOUS</i>
-                </button>
-                <button id="play">
-                    <i class="class" aria-hidden="true">PLAY</i>
-                </button>
-                <button id="next">
-                    <i class="" aria-hidden="true">NEXT</i>
-                </button>
+                <img id="prev" class="prev-btn" src="/images/previous.png">
+                <img id="play" class="play-btn" src="/images/play-2.png">
+                <img id="next" class="next-btn" src="/images/next.png">
             </div>
             <div class="lower-middle">
                 <input type="range" min="0" max="100" value="0" id="durationSlider">
             </div>
-            <!-- <audio controls>
-                <source src="/songtest/song.mp3" >
-            </audio> -->
         </div>
         <div class="right">
-            <div class="volume">
-                <i class="" arai-hidden="true" id="volumeIcon">MUTE</i>
-                <input type="range" min="0" max="100" value="5" id="volume">
-            </div>
+            <img id="volumeIcon" class="sound-icon" src="/images/sound.png">
+            <input type="range" min="0" max="100" value="40" id="volume">
         </div>
     </div>
 </section>

@@ -1,22 +1,46 @@
 <section class="album">
     <div class="container">
-        <img src='<%= album.albumImg %>'>
-        <h2><%= album.albumName %></h2>
-        <h3 id="viewArtist" data-id="<%= album.artist._id %>"><%= album.artist.artistName %></h2>
-        <button id="playOneAlbum" data-id="<%= album._id %>">Play album</button>
-        <% if(currentUser && currentUser.isAdmin){ %>
-            <button id="editAlbum" data-id="<%= album._id %>">Edit</button>
-            <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/album/<%= album._id %>?_method=DELETE' method='POST'>
-                <button>Delete</button>
-            </form>
-        <% } %>
-        <% album.song.forEach(function(song){ %>
-            <div>
-                <img src='<%= song.songImg %>' style='width: 50px;'>
-                <h2 id="viewSong" data-id="<%= song._id %>"><%= song.songName %></h2>
-                <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
-                <button id="favourite" data-id="<%= song._id %>">Favourite</button>
+        <div class="img-left-info-right">
+            <img src='<%= album.albumImg %>'>
+            <div class="info-right">
+                <p><%= album.albumName %></p>
+                <p id="viewArtist" data-id="<%= album.artist._id %>">by <%= album.artist.artistName %></p>
+                <ul>
+                    <li><img id="playOneAlbum" class="play-btn-big" data-id="<%= album._id %>" src="/images/play.png" title="Play album"></li>
+                    <% if(currentUser && currentUser.isAdmin){ %>
+                        <li><img class="edit-btn-big" id="editAlbum" data-id="<%= album._id %>" src="/images/edit.png" title="Edit album"></img></li>
+                        <li>
+                            <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/album/<%= album._id %>?_method=DELETE' method='POST'>
+                                <input type="image" class="delete-btn-big" src="/images/delete.png" alt="Delete playlist">
+                            </form>
+                        </li>
+                    <% } %>   
+                </ul> 
             </div>
-        <% }); %>
+        </div>
+        <div class="collection">
+            <% if(album.song) { %>
+                <% album.song.forEach(function(song){ %>
+                    <div class='content'>
+                        <div class="song-info">
+                            <img src='<%= song.songImg %>'>
+                            <div class="song-artist">
+                                <p id="viewSong" class="link" data-id="<%= song._id %>"><%= song.songName %></p>
+                                <p id="viewArtist" class="link" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></p>
+                            </div>
+                        </div>
+                        <ul>
+                            <li><img id="playOneSong" class="play-btn" data-id="<%= song._id %>" src="/images/play.png"></li>
+                            <li><img id="openPlaylistPanel" class="add-btn" data-id="<%= song._id %>" src="/images/add.png"></li>
+                            <% if(currentUser.favSong.includes(song._id)) { %>
+                                <li><img id="favourite" class="fav-btn-pink" data-id="<%= song._id %>" src="/images/favourite-pink.png"></li>
+                            <% } else { %>
+                                <li><img id="favourite" class="fav-btn" data-id="<%= song._id %>" src="/images/favourite.png"></li>
+                            <% } %>
+                        </ul>
+                    </div>  
+                <% }); %>
+            <% } %>
+        </div>
     </div>
 </section>

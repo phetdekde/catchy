@@ -1,6 +1,25 @@
-section.editArtist {
-    margin: 2em;
-    padding: 1em 3em;
-    background-color: white;
-    border-radius: 2em;
+section.edit {
+    padding: 2em 2em;
+    color: white;
+    overflow-x: hidden;
+}
+
+.edit .container form > * {
+    margin-bottom: 1rem;
+}
+
+.edit .container input[type="text"] {
+    padding: 0.5rem;
+    width: 500px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.edit img {
+    width: 336px;
+    max-width: 100%;
+}
+
+.edit input {
+    padding: 0.5rem;
 }

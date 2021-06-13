@@ -23,13 +23,17 @@ const   express = require('express'),
         Song = require('../models/song.js');
 
 router.get('/', function(req, res){
-    Song.find({}).populate('artist').exec(function(err, allSongs){
-        if(err) {
-            console.log(err);
-        } else {
-            res.render('home/home.ejs', {song: allSongs});
-        }
-    });
+    if(req.user) {
+        res.redirect('/home');
+    } else {
+        Song.find({}).populate('artist').exec(function(err, allSongs){
+            if(err) {
+                console.log(err);
+            } else {
+                res.render('home/home.ejs', {song: allSongs});
+            }
+        });
+    }
 });
 
 router.get('/register', function(req, res){
@@ -37,7 +41,11 @@ router.get('/register', function(req, res){
 });
 
 router.post('/register', upload.single('profileImg'), function(req, res){
-    req.body.profileImg = '/uploads/images/' + req.file.filename;
+    if(req.file) {
+        req.body.profileImg = '/uploads/images/' + req.file.filename;
+    } else {
+        req.body.profileImg = '/images/profile-pic.png';
+    }
     var newUser = new User({
         username: req.body.username,
         email: req.body.email,
@@ -49,7 +57,7 @@ router.post('/register', upload.single('profileImg'), function(req, res){
     User.register(newUser, req.body.password, function(err, user){
         if(err) {
             req.flash('error', err.message);
-            return res.render('home/register.ejs');
+            res.redirect('/register');
         }
         passport.authenticate('local')(req, res, function(){
             res.redirect('/home');

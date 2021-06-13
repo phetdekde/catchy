@@ -1,44 +1,41 @@
 <div class="navbar">
     <div class="container">
-        <% if(currentUser) { %>
-            <a id='logoHome' class="logo">cAtchy</a>
-        <% } else { %>
-            <a href='/' class="logo">cAtchy</a>
-        <% } %>  
         <img id="mobile-cta" class="mobile-menu" src="/images/menu.svg" alt="Open menu"/>
+        <a id='logoHome' class="logo">cAtchy</a>
         <nav>
             <img id="mobile-exit" class="mobile-menu-exit" src="/images/exit.svg" alt="Close menu"/>
             <div class="wrapper-nav">
                 <ul class="primary-nav">
-                    <% if(currentUser) { %>
-                        <li id='navHome'><p>Home</p></li>
-                        <li id='navPlaylist' data-id='<%= currentUser._id %>'><p>Playlist</p></li>
-                        <li id='navSearch'><p>Search</p></li>
-                    <% } %>
+                    <li id='navHome'><p class="link">Home</p></li>
+                    <li id='navPlaylist' data-id='<%= currentUser._id %>'><p class="link">Playlist</p></li>
+                    <li id='navSearch'><p class="link">Search</p></li>
                 </ul>
                 <ul class="secondary-nav">
-                    <% if(!currentUser) { %>
-                        <li id='navLogin'><a href='/login'>Login</a></li>
-                        <li id='navRegister'><a href='/register'>Register</a></li>
-                    <% } else { %>
-                        <% if(currentUser.isPremium == false) { %>
-                            <li id="goPremium"><a href='/premium'>GO PREMIUM</a></li>
-                        <% } %>
-                        <li id='navProfile' value='<%= currentUser._id %>'><p><%= currentUser.username %></p></li>
-                        <li id='navLogout'><a href='/logout'>Logout</a></li>
+                    <% if(currentUser.isPremium == false) { %>
+                        <li id="goPremium"><a class="link" href='/premium'>GO PREMIUM</a></li>
                     <% } %>
+                    <li id='navProfile' value='<%= currentUser._id %>'><p class="link"><%= currentUser.username %></p></li>
+                    <li id='navLogout'><a class="link" href='/logout'>Logout</a></li>             
                 </ul>
             </div>
         </nav>
     </div>
 </div>
 <% if(error && error.length > 0) { %>
-    <div class="" role="alert" style="background-color: red;">
-        <%= error %>
+    <div class="alert" id="alert"
+            style="position: fixed; z-index: 999; height: 3rem; padding-left: 0.5rem; padding-right: 0.5rem; border-radius: 0.5rem; top: 10px; right: 10px; align-items: center; background-color: red;">
+        <p style="text-align: center; color: white;"><%= error %></p>
     </div>
 <% } %>
 <% if(success && success.length > 0) { %>
-    <div class="" role="alert" style="background-color: green;">
-        <%= success %>
+    <div class="alert" id="alert"
+            style="position: fixed; z-index: 999; height: 3rem; padding-left: 0.5rem; padding-right: 0.5rem; border-radius: 0.5rem; top: 10px; right: 10px; align-items: center; background-color: green;">
+        <p style="text-align: center; color: white;"><%= success %></p>
     </div>
 <% } %>
+<script>
+    setTimeout(function() {
+        var bar = document.querySelector("#alert");
+        bar.style.opacity = "0";
+    }, 5000);
+</script>

@@ -1,0 +1,115 @@
+section.search {
+    padding: 2em 2em;
+    color: white;
+}
+
+.search .input-field {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--background-color-grey);
+    display: flex;
+    flex-direction: column;
+}
+
+.search input[type='text'] {
+    width: 500px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search .options div {
+    margin-bottom: 1.5rem;
+}
+
+.search .first label {
+    margin-right: 1rem;
+}
+
+.search .second label {
+    margin-right: 0.45rem;
+}
+
+.search .collection  {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.search .collection > p  {
+    font-size: 2rem;
+}
+
+.search .collection .content {
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color-grey);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.search .collection .content .song-info {
+    display: flex;
+    align-items: center;
+}
+
+.search .collection .content .song-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 0.5rem;
+}
+
+.search .collection .content .song-artist {
+    margin-left: 10px;
+    overflow-x: auto;
+}
+
+.search .collection .content .song-artist p:nth-child(1)  {
+    margin: 0;
+    white-space: nowrap;
+    /* overflow: hidden;
+    text-overflow: ellipsis; */
+    font-size: 1.5rem;
+}
+
+.search .collection .content .song-artist p:nth-child(2)  {
+    margin: 0;
+    white-space: nowrap;
+    /* overflow: hidden;
+    text-overflow: ellipsis; */
+}
+
+.search .collection .content ul {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.search .collection .content ul li * {
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media only screen and (min-width: 650px) {
+    
+    .search .collection .content .song-artist {
+        overflow-x: hidden;
+    }
+
+    .search .collection .content .song-artist p:nth-child(1)  {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .search .collection .content .song-artist p:nth-child(2)  {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+}

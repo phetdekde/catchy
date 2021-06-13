@@ -1,23 +1,24 @@
 <script type="module" defer src="/javascript/newAlbum.js"></script>
-<section class="newAlbum">
+<section id="newAlbum" class="add-new">
     <div class="container">
         <form action='/album' method='POST' enctype="multipart/form-data">
             <div>
                 <label>Album name</label>
-                <input type='text' name='album[albumName]' placeholder='Enter album name'>
+                <input type='text' name='album[albumName]' placeholder='Enter album name' required>
             </div>
             <div>
                 <label>Image</label>
-                <input type='file' name='albumImg' accept="image/*">
+                <input type='file' name='albumImg' accept="image/*" required>
             </div>
             <div id="searchInput" class="search-input">
                 <label>Artist</label>
-                <input type='text' name='album[artistName]' placeholder='Enter artist name'>
+                <input type='text' name='album[artistName]' placeholder='Enter artist name' required>
                 <div id="autocomBox" class="autocom-box"></div>
             </div>
             <button type="button" id='querySong'>Query</button>
-            <div id="songList" class="song-list">
-            </div>
+            <ul id="songList" class="song-list">
+                
+            </ul>
             <button type="submit">Submit</button>
         </form>        
     </div>

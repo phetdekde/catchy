@@ -6,54 +6,96 @@
             <button id="newSong">Add new song</button>
             <button id="newAlbum">Add new album</button>
         <% } %>
-        <h2>Song</h2>
+        <p>Top 10 most favourited song</p>
+        <div class="collection">
+            <% mostFavSong.forEach(function(song){ %>
+                <div class='content'>
+                    <div class="song-info">
+                        <img src='<%= song.songImg %>'>
+                        <div class="song-artist">
+                            <p id="viewSong" class="link" data-id="<%= song._id %>"><%= song.songName %></p>
+                            <p id="viewArtist" class="link" data-id="<%= song.artist._id %>"><%= song.artistName[0].artistName %></p>
+                        </div>
+                    </div>
+                    <ul>
+                        <li><p><%= song.count %></p></li>
+                        <li><img id="playOneSong" class="play-btn" data-id="<%= song._id %>" src="/images/play.png"></li>
+                        <li><img id="openPlaylistPanel" class="add-btn" data-id="<%= song._id %>" src="/images/add.png"></li>
+                        <% if(currentUser.favSong.includes(song._id)) { %>
+                            <li><img id="favourite" class="fav-btn-pink" data-id="<%= song._id %>" src="/images/favourite-pink.png"></li>
+                        <% } else { %>
+                            <li><img id="favourite" class="fav-btn" data-id="<%= song._id %>" src="/images/favourite.png"></li>
+                        <% } %>
+                    </ul>
+                </div>  
+            <% }); %>
+        </div>
+        <p>New Song Releases</p>
         <div class="collection">
             <% song.forEach(function(song){ %>
                 <div class='content'>
-                    <div>
+                    <div class="song-info">
                         <img src='<%= song.songImg %>'>
-                        <h2 id="viewSong" data-id="<%= song._id %>"><%= song.songName %></h2>
-                        <h3 id="viewArtist" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></h3>
-                        <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
-                        <button id="favourite" data-id="<%= song._id %>">Favourite</button>
-                        <button id="openPlaylistPanel" data-id="<%= song._id %>">Add to playlist</button>
+                        <div class="song-artist">
+                            <p id="viewSong" class="link" data-id="<%= song._id %>"><%= song.songName %></p>
+                            <p id="viewArtist" class="link" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></p>
+                        </div>
                     </div>
+                    <ul>
+                        <li><img id="playOneSong" class="play-btn" data-id="<%= song._id %>" src="/images/play.png"></li>
+                        <li><img id="openPlaylistPanel" class="add-btn" data-id="<%= song._id %>" src="/images/add.png"></li>
+                        <% if(currentUser.favSong.includes(song._id)) { %>
+                            <li><img id="favourite" class="fav-btn-pink" data-id="<%= song._id %>" src="/images/favourite-pink.png"></li>
+                        <% } else { %>
+                            <li><img id="favourite" class="fav-btn" data-id="<%= song._id %>" src="/images/favourite.png"></li>
+                        <% } %>
+                    </ul>
                 </div>  
             <% }); %>
         </div>
-        <h2>Album</h2>
+        <p>New Album Releases</p>
         <div class="collection">
             <% album.forEach(function(album){ %>
                 <div class='content'>
-                    <div>
+                    <div class="song-info">
                         <img src='<%= album.albumImg %>'>
-                        <h2 id="viewAlbum" data-id="<%= album._id %>"><%= album.albumName %></h2>
-                        <h3 id="viewArtist" data-id="<%= album.artist._id %>"><%= album.artist.artistName %></h3>
-                        <button id="playOneAlbum" data-id="<%= album._id %>">Play album</button>
+                        <div class="song-artist">
+                            <p id="viewAlbum" class="link" data-id="<%= album._id %>"><%= album.albumName %></p>
+                            <p id="viewArtist" class="link" data-id="<%= album.artist._id %>"><%= album.artist.artistName %></p>
+                        </div>
                     </div>
+                    <ul>
+                        <li><img id="playOneAlbum" class="play-btn" data-id="<%= album._id %>" src="/images/play.png" alt="Play album"></li>
+                    </ul>
                 </div>  
             <% }); %>
         </div>
-        <h2>Artist</h2>
+        <p>New Artist Releases</p>
         <div class="collection">
             <% artist.forEach(function(artist){ %>
                 <div class='content'>
-                    <div>
+                    <div class="song-info">
                         <img src='<%= artist.artistImg %>'>
-                        <h2 id="viewArtist" data-id="<%= artist._id %>"><%= artist.artistName %></h2>
+                        <div class="song-artist">
+                            <p id="viewArtist" class="link" data-id="<%= artist._id %>"><%= artist.artistName %></p>
+                        </div>
                     </div>
                 </div>  
             <% }); %>
         </div>
-        <h2>Playlist</h2>
+        <p>Your playlist</p>
         <div class="collection">
             <% playlist.forEach(function(playlist){ %>
                 <div class='content'>
-                    <div>
+                    <div class="song-info">
                         <img src='<%= playlist.playlistImg %>'>
-                        <h2 id="viewPlaylist" data-id="<%= playlist._id %>"><%= playlist.playlistName %></h2>
-                        <button id="playOnePlaylist" data-id="<%= playlist._id %>">Play playlist</button>
+                        <div class="song-artist">
+                            <p id="viewPlaylist" class="link" data-id="<%= playlist._id %>"><%= playlist.playlistName %></p>
+                        </div>
                     </div>
+                    <ul>
+                        <li><img id="playOnePlaylist" class="play-btn" data-id="<%= playlist._id %>" src="/images/play.png" alt="Play playlist"></li>
+                    </ul>
                 </div>  
             <% }); %>
         </div>

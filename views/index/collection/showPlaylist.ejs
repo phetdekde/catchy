@@ -1,30 +1,43 @@
-<section class="show-playlist">
+<section class="playlist">
     <div class="container">
-        <div class="playlist-info">
+        <div class="img-left-info-right">
             <img src='<%= playlist.playlistImg %>'>
-            <h2><%= playlist.playlistName %></h2>
-            <h4>Submitted by <%= playlist.author.username %></h4>
-            <button id="playOnePlaylist" data-id="<%= playlist._id %>">Play playlist</button>
-            <% if(currentUser && playlist.author._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                <button id="editPlaylist" data-id="<%= playlist._id %>">Edit</button>
-                <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/playlist/<%= playlist._id %>?_method=DELETE' method='POST'>
-                    <button>Delete</button>
-                </form>
-            <% } %>
+            <div class="info-right">
+                <p><%= playlist.playlistName %></p>
+                <p>by <%= playlist.author.username %></p>
+                <ul>
+                    <li><img id="playOnePlaylist" class="play-btn-big" data-id="<%= playlist._id %>" src="/images/play.png" alt="Play playlist"></li>
+                    <% if(currentUser && playlist.author._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                        <li><img class="edit-btn-big" id="editPlaylist" data-id="<%= playlist._id %>" src="/images/edit.png" alt="Edit playlist"></img></li>
+                        <li>
+                            <form onsubmit="return confirm('Are you sure you want to delete?');" action = '/playlist/<%= playlist._id %>?_method=DELETE' method='POST'>
+                                <input type="image" class="delete-btn-big" src="/images/delete.png" alt="Delete playlist">
+                            </form>
+                        </li>
+                    <% } %>   
+                </ul> 
+            </div>
         </div>
-        <div class="song-in-playlist">
+        <div class="collection">
             <% if(playlist.song) { %>
                 <% playlist.song.forEach(function(song){ %>
                     <div class='content'>
-                        <div>
+                        <div class="song-info">
                             <img src='<%= song.songImg %>'>
-                            <h2 id="viewSong" data-id="<%= song._id %>"><%= song.songName %></h2>
-                            <h3 id="viewArtist" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></h2>
-                            <button id="playOneSong" data-id="<%= song._id %>">Play song</button>
-                            <% if(currentUser && playlist.author._id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-                                <button id="deleteSongFromPlaylist" data-id="<%= song._id %>">Delete</button>
-                            <% } %>
+                            <div class="song-artist">
+                                <p id="viewSong" class="link" data-id="<%= song._id %>"><%= song.songName %></p>
+                                <p id="viewArtist" class="link" data-id="<%= song.artist._id %>"><%= song.artist.artistName %></p>
+                            </div>
                         </div>
+                        <ul>
+                            <li><img id="playOneSong" class="play-btn" data-id="<%= song._id %>" src="/images/play.png"></li>
+                            <li><img id="openPlaylistPanel" class="add-btn" data-id="<%= song._id %>" src="/images/add.png"></li>
+                            <% if(currentUser.favSong.includes(song._id)) { %>
+                                <li><img id="favourite" class="fav-btn-pink" data-id="<%= song._id %>" src="/images/favourite-pink.png"></li>
+                            <% } else { %>
+                                <li><img id="favourite" class="fav-btn" data-id="<%= song._id %>" src="/images/favourite.png"></li>
+                            <% } %>
+                        </ul>
                     </div>  
                 <% }); %>
             <% } %>
@@ -39,7 +52,7 @@
                     <form action='/playlist/<%= playlist._id %>?_method=PUT' method='POST' enctype="multipart/form-data">
                         <div>
                             <label>Playlist name</label>
-                            <input type='text' name='playlist[playlistName]' placeholder='<%= playlist.playlistName %>' value='<%= playlist.playlistName %>'>
+                            <input type='text' name='playlist[playlistName]' placeholder='<%= playlist.playlistName %>' value='<%= playlist.playlistName %>' required>
                         </div>
                         <div>
                             <label>Image</label>

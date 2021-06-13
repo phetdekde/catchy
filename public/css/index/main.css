@@ -1,0 +1,11 @@
+.main {
+    box-sizing: border-box;
+    padding-bottom: 85px;
+}
+
+@media only screen and (min-width: 650px) {
+    .main {
+        box-sizing: border-box;
+        padding-left: 250px;
+    }
+}

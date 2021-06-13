@@ -1,25 +1,25 @@
-<section class="newSong">
+<section class="add-new">
     <div class="container">
         <form action='/song' method='POST' enctype="multipart/form-data">
             <div>
                 <label>Song name</label>
-                <input type='text' name='song[songName]' placeholder='Enter character name'>
+                <input type='text' name='song[songName]' placeholder='Enter song name' required>
             </div>
             <div>
                 <label>Image</label>
-                <input type='file' name='songImg' accept="image/*">
+                <input type='file' name='songImg' accept="image/*" required>
             </div>
             <div>
                 <label>Lyric</label>
-                <input type='text' name='song[lyric]' placeholder='Enter character description'>
+                <input type='text' name='song[lyric]' placeholder='Enter lyric'>
             </div>
             <div>
                 <label>Artist</label>
-                <input type='text' name='artist[artistName]' placeholder='Enter character description'>
+                <input type='text' name='artist[artistName]' placeholder='Enter artist name' required>
             </div>
             <div>
                 <label>Song</label>
-                <input type='file' name='songFile' accept="audio/*">
+                <input type='file' name='songFile' accept="audio/*" required>
             </div>
             <button type="submit">Submit</button>
         </form>
