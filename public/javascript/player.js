@@ -32,7 +32,9 @@ let track = document.createElement('audio');
 async function oneSongLoad(songId) {
     let song = await getSong(songId);
     indexNo = 0;
+    //set song in player
     loadNextSong(song, indexNo);
+    //play this song
     playSong();
     const previous = document.querySelector('#prev');
     const next = document.querySelector('#next');
@@ -92,7 +94,6 @@ async function onePlaylistLoad(playlistId) {
         loadNextSong(song, indexNo);
         playSong();
     }
-
     const previous = document.querySelector('#prev');
     const next = document.querySelector('#next');
     previous.remove();
@@ -115,17 +116,15 @@ async function onePlaylistLoad(playlistId) {
     });
 }
 
-function loadEmptySong() {
-    title.innerHTML = "";
-    artist.innerHTML = "";
-}
-
 function loadNextSong(song, indexNo) {
     clearInterval(timer);
     resetSlider();
 
-    const title = document.querySelector('#viewSongInPlayer').remove();
-    const artist = document.querySelector('#viewArtistInPlayer').remove();
+    //remove song info (songName, artistName) element first 
+    document.querySelector('#viewSongInPlayer').remove();
+    document.querySelector('#viewArtistInPlayer').remove();
+
+    //create new song info
     let newTitle = document.createElement('p');
     newTitle.id = 'viewSongInPlayer';
     newTitle.className = 'song-name link';
@@ -144,6 +143,7 @@ function loadNextSong(song, indexNo) {
     newArtist.addEventListener('click', function() {
         fetchViewArtist('false', this.getAttribute('data-id'));
     });
+
     track.volume = recentVolume.value / 100;
     track.src = song[indexNo].songFile;
     songImg.src = song[indexNo].songImg;

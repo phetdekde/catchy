@@ -11,6 +11,7 @@ body {
     background-color: var(--background-color);
     margin: 0;
     font-family: 'Open Sans';
+    overflow-x: hidden;
 }
 
 section.home {
@@ -62,90 +63,9 @@ section.home {
     color: white;
 }
 
-.hero-btn-large {
-    display: none;
-}
-
-.song-card li {
-    text-align: left;
-    background: var(--primary-color);
-    color: white;
-    width: 200px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1.5em;
-    position: relative;
-    z-index: 3;
-}
-
-.song-card li::before {
-    content: "";
-    background: var(--primary-color);
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    width: calc(100% + 10px);
-    height: calc(100% + 10px);
-    margin-bottom: 1em;
-    z-index: 1;
-    border-radius: 12px;
-}
-
-.song-card li::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    z-index: 2;
-    border-radius: 8px;
-}
-
-.song-card img {
-    height: 200px;
-    width: 200px;
-    position: relative;
-    z-index: 3;
-    border-radius: 6px;
-}
-
-.song-card h3 {
-    position: relative;
-    z-index: 3;
-    margin: 0;
-    margin-top: 1em;
-}
-
-.song-card h4 {
-    position: relative;
-    z-index: 3;
-    margin: 0;
-}
-
-@media only screen and (min-width: 500px) {
-    .song-card ul {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: left;  
-        gap: 1em;
-    }
-    
-    .song-card li {
-        margin-left: 0;
-        margin-right: 0;
-    }
-}
-
 @media only screen and (min-width: 1240px) {
-
-    .home .container {
-        display: flex;
-    }
-
     .hero-btn-small {
-        display: none;
+        font-size: 2rem;
     }
 
     .hero-col h1 {
@@ -157,66 +77,5 @@ section.home {
         bottom: 100px;
         width: 10px;
         height: 85%;
-    }
-
-    .song-card ul {
-        display: flex;
-        flex-flow: row nowrap;
-        margin-top: 3em;
-        grid-gap: 2em;
-    }
-    
-    .hero-btn-large {
-        display: block;
-        text-align: left;
-        margin-top: 1em;
-    }
-
-    .song-card li {
-        text-align: left;
-        background: var(--primary-color);
-        color: white;
-        width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
-        z-index: 3;
-    }
-
-    .song-card img {
-        height: 300px;
-        width: 300px;
-        position: relative;
-        z-index: 3;
-        border-radius: 6px;
-    }
-    
-    .song-card h3 {
-        position: relative;
-        z-index: 3;
-        margin: 0;
-        margin-top: 1em;
-    }
-    
-    .song-card h4 {
-        position: relative;
-        z-index: 3;
-        margin: 0;
-    }
-       
-    .hero-btn-large .new-acc-btn {
-        background: var(--surface-color);
-        color: white;
-        text-decoration: none;
-        padding: .6em 1.3em;
-        font-size: 2em;
-        border-radius: 1em;
-        font-weight: bold;
-        display: inline-block;
-    }
-
-    .hero-btn-large .new-acc-btn:hover {
-        background: var(--primary-color);
-        color: white;
     }
 } 

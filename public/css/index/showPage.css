@@ -1,0 +1,217 @@
+.img-left-info-right {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.img-left-info-right > img:nth-child(1) {
+    width: 100%;
+    max-width: 336px;
+    margin-right: 3rem;
+}
+
+.img-left-info-right .info-right {
+    overflow-x: hidden;
+}
+
+.img-left-info-right .info-right p:nth-child(1) {
+    font-size: 2rem;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+
+.img-left-info-right .info-right p:nth-child(2) {
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.img-left-info-right ul {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 10px;
+}
+
+.img-left-info-right ul li * {
+    margin-right: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* for linear display */
+
+.linear-display .collection  {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 5rem;
+}
+
+.linear-display .collection .content {
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color-grey);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.linear-display .collection .content .song-info {
+    display: flex;
+    align-items: center;
+}
+
+.linear-display .collection .content .song-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 0.5rem;
+}
+
+.linear-display .collection .content .song-artist {
+    margin-left: 10px;
+    overflow-x: auto;
+}
+
+.linear-display .collection .content .song-artist p:nth-child(1)  {
+    margin: 0;
+    white-space: nowrap;
+    font-size: 1.5rem;
+}
+
+.linear-display .collection .content .song-artist p:nth-child(2)  {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.linear-display .collection .content ul {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.linear-display .collection .content ul li * {
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media only screen and (min-width: 650px) {
+    
+    .linear-display .collection .content .song-artist {
+        overflow-x: hidden;
+    }
+
+    .linear-display .collection .content .song-artist p:nth-child(1)  {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .linear-display .collection .content .song-artist p:nth-child(2)  {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+/* big-box-display */
+
+.big-box-display .collection  {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    margin-bottom: 5rem;
+}
+
+.big-box-display .collection .content {
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color-grey);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.big-box-display .collection .content .song-info {
+    display: flex;
+    align-items: center;
+}
+
+.big-box-display .collection .content .song-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 0.5rem;
+}
+
+.big-box-display .collection .content .song-artist {
+    margin-left: 10px;
+    overflow-x: auto;
+}
+
+.big-box-display .collection .content .song-artist p:nth-child(1)  {
+    margin: 0;
+    white-space: nowrap;
+    font-size: 1.5rem;
+}
+
+.big-box-display .collection .content .song-artist p:nth-child(2)  {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.big-box-display .collection .content ul {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.big-box-display .collection .content ul li * {
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media only screen and (min-width: 650px) {
+    .big-box-display .collection {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .big-box-display .collection .content {
+        width: 250px;
+    }
+
+    .big-box-display .collection .content .song-info {
+        flex-direction: column;
+        overflow-x: hidden;
+        /* text-overflow: ellipsis won't work if there is align-items? */
+        align-items: unset;
+    }
+
+    .big-box-display .collection .content .song-info img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 150px;
+        height: 150px;
+        padding: 1.5rem;
+    }
+
+    .big-box-display .collection .content .song-artist {
+        overflow-x: hidden;
+    }
+
+    .big-box-display .collection .content .song-artist p:nth-child(1)  {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .big-box-display .collection .content .song-artist p:nth-child(2)  {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+}

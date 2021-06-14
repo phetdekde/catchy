@@ -6,6 +6,7 @@ const   express = require('express'),
         Album = require('../models/album.js'),
         Playlist = require('../models/playlist.js');
 
+//return all artist
 router.get('/allArtist', function(req, res){
     Artist.find({}, function(err, foundArtist){
         if(err) {
@@ -16,6 +17,7 @@ router.get('/allArtist', function(req, res){
     });
 });
 
+//return all playlist that doesn't have this song
 router.get('/allPlaylist/:songId', async function(req, res){
     const foundUser = await User.findById(req.user._id).exec();
     Playlist.find(
@@ -34,6 +36,7 @@ router.get('/allPlaylist/:songId', async function(req, res){
     });
 });
 
+//search song
 router.get('/song/:query/:sort', function(req, res){
     if(req.params.sort === 'alphabet') {
         Song.find({songName: {$regex: req.params.query, $options: 'i'}})
@@ -68,6 +71,7 @@ router.get('/song/:query/:sort', function(req, res){
     }
 });
 
+//search artist
 router.get('/artist/:query/:sort', function(req, res){
     if(req.params.sort === 'alphabet') {
         Artist.find({artistName: {$regex: req.params.query, $options: 'i'}})
@@ -92,6 +96,7 @@ router.get('/artist/:query/:sort', function(req, res){
     }
 });
 
+//search album
 router.get('/album/:query/:sort', function(req, res){
     if(req.params.sort === 'alphabet') {
         Album.find({albumName: {$regex: req.params.query, $options: 'i'}})
@@ -118,6 +123,7 @@ router.get('/album/:query/:sort', function(req, res){
     }
 });
 
+//search artist
 router.get('/songByArtistName/:artistName', function(req, res){
     Artist.findOne({artistName: req.params.artistName}).populate('song').exec(function(err, foundArtist){
         if(err) {
@@ -135,6 +141,7 @@ router.get('/songByArtistName/:artistName', function(req, res){
                     if(err) {
                         console.log(err);
                     } else {
+                        console.log('Found song: ' + foundSong)
                         res.json(foundSong);
                     }
                 });
@@ -143,16 +150,19 @@ router.get('/songByArtistName/:artistName', function(req, res){
     });
 });
 
+//seach song in this album
 router.get('/songByAlbumId/inAlbum/:albumId', function(req, res){
     Album.findById(req.params.albumId).populate('song').exec(function(err, foundAlbum){
         if(err) {
             console.log(err);
         } else {
+            console.log('Songs (in this album): ' + foundAlbum.song)
             res.json(foundAlbum.song);
         }
     });
 });
 
+//search song that isn't in this album
 router.get('/songByAlbumId/notInAlbum/:albumId', function(req, res){
     Album.findById(req.params.albumId, function(err, foundAlbum){
         if(err) {
@@ -166,6 +176,7 @@ router.get('/songByAlbumId/notInAlbum/:albumId', function(req, res){
                         if(err) {
                             console.log(err);
                         } else {
+                            console.log("Songs (not in any album): " + foundSong);
                             res.json(foundSong);
                         }
                     });
@@ -175,6 +186,7 @@ router.get('/songByAlbumId/notInAlbum/:albumId', function(req, res){
     });
 });
 
+//add or remove from favourites
 router.get('/updateFavourite/:songId', async function(req, res){
     const foundUser = await User.findByIdAndUpdate(req.user._id, {$pull: {favSong: req.params.songId}}).exec();
     if(!foundUser.favSong.includes(req.params.songId)) {
@@ -193,49 +205,9 @@ router.get('/updateFavourite/:songId', async function(req, res){
         console.log('Removed user from favBy');
     }
     res.json('Done');
-    // User.findByIdAndUpdate(
-    //     req.user._id,
-    //     {$pull: {favSong: req.params.songId}},
-    //     function(err, updatedUser){
-    //         if(err) {
-    //             console.log(err, );
-    //         } else {
-    //             if(!updatedUser.favSong.includes(req.params.songId)) {
-    //                 updatedUser.favSong.push(req.params.songId);
-    //                 updatedUser.save();
-    //                 console.log('Added song ID to favSong: ' + req.params.songId);
-    //                 Song.findByIdAndUpdate(
-    //                     req.params.songId,
-    //                     {$push: {favBy: req.user._id}},
-    //                     function(err) {
-    //                         if(err) {
-    //                             console.log(err);
-    //                         } else {
-    //                             console.log('Added user ID to favBy: ' + req.user._id)
-    //                             res.json('Added');
-    //                         }
-    //                     }
-    //                 );
-    //             } else {
-    //                 console.log('Removed song ID from favSong: ' + req.params.songId);
-    //                 Song.findByIdAndUpdate(
-    //                     req.params.songId,
-    //                     {$pull: {favBy: req.user._id}},
-    //                     function(err) {
-    //                         if(err) {
-    //                             console.log(err);
-    //                         } else {
-    //                             console.log('Remove user ID from favBy' + req.user._id);
-    //                             res.json('Removed');
-    //                         }
-    //                     }
-    //                 );
-    //             }
-    //         }
-    //     }
-    // );
 });
 
+//add song in playlist
 router.get('/updatePlaylist/:songId/:playlistId', function(req, res){
     Playlist.findByIdAndUpdate(req.params.playlistId, {$push: {song: req.params.songId}}, function(err, updatedPlaylist){
         if(err) {
@@ -243,19 +215,11 @@ router.get('/updatePlaylist/:songId/:playlistId', function(req, res){
         } else {
             console.log('Added song to playlist');
             res.json('Added');
-            // if(!updatedPlaylist.song.includes(req.params.songId)) {
-            //     updatedPlaylist.song.push(req.params.songId);
-            //     updatedPlaylist.save();
-            //     console.log('Added song to playlist');
-            //     res.json('Added');
-            // } else {
-            //     console.log('Removed song from playlist');
-            //     res.json('Removed');
-            // }
         }
     });
 });
 
+//remove song from playlist
 router.get('/removeSongFromPlaylist/:songId/:playlistId', function(req, res){
     Playlist.findByIdAndUpdate(req.params.playlistId, {$pull: {song: req.params.songId}}, function(err, updatedPlaylist){
         if(err) {
@@ -267,6 +231,7 @@ router.get('/removeSongFromPlaylist/:songId/:playlistId', function(req, res){
     });
 });
 
+//return song
 router.get('/player/song/:songId', function(req, res){
     Song.find({_id: req.params.songId})
     .populate({
@@ -278,11 +243,13 @@ router.get('/player/song/:songId', function(req, res){
         if(err) {
             console.log(err);
         } else {
+            console.log('Song: ' + foundSong);
             res.json(foundSong);
         }
     });
 });
 
+//return song in album
 router.get('/player/album/:albumId', function(req, res){
     Album.findById(req.params.albumId)
     .populate({
@@ -299,6 +266,7 @@ router.get('/player/album/:albumId', function(req, res){
         if(err) {
             console.log(err);
         } else {
+            console.log('Album: ' + foundAlbum);
             if(foundAlbum.song.length == 0) {
                 res.json(null);
             } else {
@@ -308,6 +276,7 @@ router.get('/player/album/:albumId', function(req, res){
     });
 });
 
+//return song in playlist
 router.get('/player/playlist/:playlistId', function(req, res){
     Playlist.findById(req.params.playlistId)
     .populate({
@@ -324,6 +293,7 @@ router.get('/player/playlist/:playlistId', function(req, res){
         if(err) {
             console.log(err);   
         } else {
+            console.log('Playlist: ' + foundPlaylist);
             if(foundPlaylist.song.length == 0) {
                 res.json(null);
             } else {

@@ -4,6 +4,7 @@ async function getArtistFromURL() {
     let albumId = location.pathname.split('/');
     const songList = document.querySelector('#songList');
     if(songList) {
+        //get song that is already in this album
         let songInAlbum = await getSongInAlbum(albumId[2]);
         if(songInAlbum) {
             songInAlbum.forEach(element => {
@@ -20,6 +21,7 @@ async function getArtistFromURL() {
                 songList.appendChild(label);
             });
         }
+        //get song that is not in any album
         let songNotInAlbum = await getSongNotInAlbum(albumId[2]);
         if(songNotInAlbum) {
             songNotInAlbum.forEach(element => {

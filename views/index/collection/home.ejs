@@ -1,4 +1,4 @@
-<section class="home">
+<section class="home big-box-display">
     <div class="container">
         <h1>Welcome <%= currentUser.username %>!</h1>
         <% if(currentUser && currentUser.isAdmin){ %>
@@ -53,6 +53,19 @@
                 </div>  
             <% }); %>
         </div>
+        <p>New Artist</p>
+        <div class="collection">
+            <% artist.forEach(function(artist){ %>
+                <div class='content'>
+                    <div class="song-info">
+                        <img src='<%= artist.artistImg %>'>
+                        <div class="song-artist">
+                            <p id="viewArtist" class="link" data-id="<%= artist._id %>"><%= artist.artistName %></p>
+                        </div>
+                    </div>
+                </div>  
+            <% }); %>
+        </div>
         <p>New Album Releases</p>
         <div class="collection">
             <% album.forEach(function(album){ %>
@@ -67,19 +80,6 @@
                     <ul>
                         <li><img id="playOneAlbum" class="play-btn" data-id="<%= album._id %>" src="/images/play.png" alt="Play album"></li>
                     </ul>
-                </div>  
-            <% }); %>
-        </div>
-        <p>New Artist Releases</p>
-        <div class="collection">
-            <% artist.forEach(function(artist){ %>
-                <div class='content'>
-                    <div class="song-info">
-                        <img src='<%= artist.artistImg %>'>
-                        <div class="song-artist">
-                            <p id="viewArtist" class="link" data-id="<%= artist._id %>"><%= artist.artistName %></p>
-                        </div>
-                    </div>
                 </div>  
             <% }); %>
         </div>

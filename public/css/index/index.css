@@ -1,23 +1,71 @@
-/* body {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 50px 1fr 75px;
-    grid-template-areas:
-        "navbar navbar navbar"
-        "main main main"
-        "player player player";
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+:root {
+    --primary-color: linear-gradient(130deg,#ff7a18,#af002d 41.07%,#319197 76.05%);
+    --background-color-dark: rgb(22, 22, 22);
+    --background-color-grey: rgb(41, 41, 41);
+    --text-hover: rgb(156, 156, 156);
 }
 
-@media (min-width: 650px) {
-    body {
-        display: grid;   
-        grid-template-columns: 200px 1fr;
-        grid-template-rows: 1fr 85px;
-        grid-template-areas:
-            "navbar main"
-            "player player";
+body {
+    background-color: rgb(22, 22, 22);
+    margin: 0;
+    font-family: 'Open Sans';
+    overflow-x: hidden;
+}
+
+.main {
+    box-sizing: border-box;
+    padding-bottom: 85px;
+}
+
+@media only screen and (min-width: 650px) {
+    .main {
+        box-sizing: border-box;
+        padding-left: 250px;
     }
-} */
+}
+
+.link:hover {
+    color: var(--text-hover);
+    cursor: pointer;
+}
+
+.play-btn, .add-btn, .fav-btn {
+    width: 25px;
+    height: 25px;
+}
+
+.play-btn-big, .add-btn-big, .fav-btn-big, .edit-btn-big, .download-btn-big {
+    width: 50px;
+    height: 50px;
+}
+
+.fav-btn-pink {
+    width: 25px;
+    height: 25px; 
+}
+
+.fav-btn-pink-big {
+    width: 50px;
+    height: 50px;
+}
+
+.delete-btn-big {
+    width: 50px;
+    height: 50px;
+}
+
+.play-btn:hover, .add-btn:hover, .fav-btn:hover, .play-btn-big:hover, .add-btn-big:hover, .fav-btn-big:hover, .edit-btn-big:hover, .download-btn-big:hover {
+    filter: invert(50%);
+    cursor: pointer;
+}
+
+.fav-btn-pink:hover, .fav-btn-pink-big:hover, .delete-btn-big:hover {
+    filter: invert(50%);
+    cursor: pointer;
+}
 
 .playlist-panel {
     position: fixed;
@@ -90,11 +138,25 @@
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, .4);
-    z-index: 3;
+    z-index: 9;
     pointer-events: none;
 }
 
 #overlay.active {
     opacity: 1;
     pointer-events: all;
+}
+
+@media (hover: none) {
+    .link:hover {
+        color: white;
+    }
+
+    .play-btn:hover, .add-btn:hover, .fav-btn:hover, .play-btn-big:hover, .add-btn-big:hover, .fav-btn-big:hover, .edit-btn-big:hover, .download-btn-big:hover {
+        filter: unset;
+    }
+    
+    .fav-btn-pink:hover, .fav-btn-pink-big:hover, .delete-btn-big:hover {
+        filter: unset;
+    }
 }

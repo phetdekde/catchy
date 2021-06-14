@@ -19,20 +19,14 @@ const   express = require('express'),
             callback(null, true);
         },
         upload = multer({storage: storage, fileFilter: fileFilter}),
-        User = require('../models/user.js'),
-        Song = require('../models/song.js');
+        User = require('../models/user.js');
 
 router.get('/', function(req, res){
+    //if logged in -> redirect to '/home'
     if(req.user) {
         res.redirect('/home');
     } else {
-        Song.find({}).populate('artist').exec(function(err, allSongs){
-            if(err) {
-                console.log(err);
-            } else {
-                res.render('home/home.ejs', {song: allSongs});
-            }
-        });
+        res.render('home/home.ejs');
     }
 });
 

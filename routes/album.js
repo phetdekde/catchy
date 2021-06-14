@@ -33,14 +33,12 @@ router.post('/', upload.single('albumImg'), function(req, res){
     Album.create(req.body.album, function(err, createdAlbum){
         if(err) {
             console.log(err);
-            req.flash('error', err);
-            res.redirect('/home');
         } else {
-            console.log('New album created==========\n' + createdAlbum);
+            console.log('==========Album created==========\n' + createdAlbum);
             Song.updateMany(
                 { _id: createdAlbum.song}, 
                 { album: createdAlbum._id },
-                function(err, foundSong){
+                function(err){
                     if(err) {
                         console.log(err);
                     } else {
@@ -124,6 +122,7 @@ router.put('/:id', upload.single('albumImg'), function(req, res){
             if(err) {
                 console.log(err); 
             } else {
+                console.log('==========Updated album==========\n' + updatedAlbum);
                 Song.updateMany({_id: updatedAlbum.song}, {$unset: {album: ""}}, function(err){
                     if(err) {
                         console.log(err);   
@@ -148,39 +147,11 @@ router.put('/:id', upload.single('albumImg'), function(req, res){
 
 router.delete('/:id', async function(req, res){
     const deletedAlbum = await Album.findByIdAndRemove(req.params.id).exec();
+    console.log('==========Deleted album==========\n' + deletedAlbum);
     await Artist.findByIdAndUpdate(deletedAlbum.artist, {$pull: {album: deletedAlbum._id}}).exec();
     await Song.updateMany({_id: deletedAlbum.song}, {$unset: {album: deletedAlbum._id}}).exec();
-    console.log('==========Delete album==========\n' + deletedAlbum);
+    console.log('Pulled from artist / Unset album field in song');
     res.redirect('/home');
-
-    // Album.findByIdAndRemove(req.params.id, function(err, deletedAlbum){
-    //     if(err) {
-    //         console.log(err);
-    //         req.flash('error', err); 
-    //         res.redirect('/home');
-    //     } else {
-    //         console.log('Delete album==========\n' + deletedAlbum);
-    //         Artist.findByIdAndUpdate(deletedAlbum.artist, {$pull: {album: deletedAlbum._id}}, function(err){
-    //             if(err) {
-    //                 console.log(err);
-    //                 req.flash('error', err);
-    //                 res.redirect('/home');
-    //             } else {
-    //                 Song.updateMany({_id: deletedAlbum.song}, {$unset: {album: deletedAlbum._id}}, function(err){
-    //                         if(err) {
-    //                             console.log(err);
-    //                             req.flash('error', err);
-    //                             res.redirect('/home');
-    //                         } else {
-    //                             req.flash('success', 'Delete successfully.');
-    //                             res.redirect('/home');
-    //                         }
-    //                     }
-    //                 );
-    //             }
-    //         });
-    //     }
-    // });
 });
 
 module.exports = router;

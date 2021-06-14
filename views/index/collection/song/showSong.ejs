@@ -13,11 +13,13 @@
                     <% } else { %>
                         <li><img id="favourite" class="fav-btn-big" data-id="<%= song._id %>" src="/images/favourite.png" title="Add to favourite"></li>
                     <% } %>
-                    <li>
-                        <a href="<%= song.songFile %>" download>
-                            <img class="download-btn-big" src="/images/download.png" title="Download this song">
-                        </a>
-                    </li>
+                    <% if(currentUser && currentUser.isPremium == 1) { %>
+                        <li>
+                            <a href="<%= song.songFile %>" download>
+                                <img class="download-btn-big" src="/images/download.png" title="Download this song">
+                            </a>
+                        </li>
+                    <% } %>
                     <% if(currentUser && currentUser.isAdmin){ %>
                         <li><img class="edit-btn-big" id="editSong" data-id="<%= song._id %>" src="/images/edit.png" title="Edit song"></img></li>
                         <li>

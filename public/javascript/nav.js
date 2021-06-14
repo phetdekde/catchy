@@ -1,42 +1,34 @@
 import { search } from './search.js';
-import { fetchMyDocument, fetchViewSong, fetchViewArtist, updateFavourite, openPlaylistPanel } from './index.js';
+import { fetchStart, fetchViewSong, fetchViewArtist, updateFavourite, openPlaylistPanel } from './index.js';
 import { oneSongLoad, onePlaylistLoad } from './player.js';
 
 const mobileBtn = document.getElementById('mobile-cta'),
     nav = document.querySelector('nav'),
-    mobileBtnExit = document.getElementById('mobile-exit'),
-    li = document.querySelectorAll('li'),
-    logoHome = document.querySelector('#logoHome').addEventListener('click', fetchHome), 
-    navHome = document.querySelector('#navHome').addEventListener('click', fetchHome),
-    navSearch = document.querySelector('#navSearch').addEventListener('click', function(){
-        fetchSearch('false');
-    }),
-    navPlaylist = document.querySelector('#navPlaylist').addEventListener('click', function(){
-        fetchAllPlaylist('false', this.getAttribute('data-id'));
-    }),
-    navProfile = document.querySelector('#navProfile').addEventListener('click', function(){
-        fetchProfile('false', this.getAttribute('value'));
-    });
+    mobileBtnExit = document.getElementById('mobile-exit');
+
+document.querySelectorAll('li'); 
+document.querySelector('#logoHome').addEventListener('click', fetchHome);
+document.querySelector('#navHome').addEventListener('click', fetchHome);
+document.querySelector('#navSearch').addEventListener('click', function(){
+    fetchSearch('false');
+});
+document.querySelector('#navPlaylist').addEventListener('click', function(){
+    fetchAllPlaylist('false', this.getAttribute('data-id'));
+});
+document.querySelector('#navProfile').addEventListener('click', function(){
+    fetchProfile('false', this.getAttribute('value'));
+});
 
 mobileBtn.addEventListener('click', () => {
     nav.classList.add('menu-btn');
 });
-
 mobileBtnExit.addEventListener('click', () => {
     nav.classList.remove('menu-btn');
 });
 
-li.forEach(elem => {
-    elem.addEventListener('click', () => {
-        li.forEach(elem => {
-            elem.classList.remove('current');
-        });
-    });
-});
-
 async function fetchHome() {      
     try {
-        fetchMyDocument();
+        fetchStart();
         history.pushState(null, null, '/home');
     } catch (err) {
         console.log('Fetch error:' + err); 
@@ -114,6 +106,18 @@ async function fetchViewPlaylist(isPopState, playlistId) {
             elem.addEventListener('click', function(){
                 fetchDeleteSongFromPlaylist(playlistId, this.getAttribute('data-id'));
             });   
+        });
+        document.querySelectorAll('#favourite').forEach(elem => {
+            elem.addEventListener('click', function(){
+                if(this.className == 'fav-btn') {
+                    this.className = 'fav-btn-pink';
+                    this.src = '/images/favourite-pink.png';
+                } else {
+                    this.className = 'fav-btn';
+                    this.src = '/images/favourite.png';
+                }
+                updateFavourite(this.getAttribute('data-id'));
+            })
         });
         if(isPopState == 'false')
             history.pushState('viewPlaylist/' + playlistId, null, '/playlist/' + playlistId);

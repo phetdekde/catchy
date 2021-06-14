@@ -1,0 +1,14 @@
+section.newArtist,
+section.playlist,
+section.add-new,
+section.song,
+section.edit,
+section.artist,
+section.album,
+section.all-playlist,
+section.profile,
+section.home,
+section.search {
+    padding: 2em 2em;
+    color: white;
+}

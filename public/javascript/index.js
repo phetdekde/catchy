@@ -1,26 +1,27 @@
-import { fetchProfile, openEditProfilePanel } from './nav.js';
-import { fetchSearch } from './nav.js';
-import { fetchAllPlaylist } from './nav.js';
-import { fetchViewPlaylist } from './nav.js';
-import { openEditPlaylistPanel } from './nav.js';
-import { fetchDeleteSongFromPlaylist } from './nav.js'
+import { fetchProfile, openEditProfilePanel, fetchSearch, fetchAllPlaylist, fetchViewPlaylist, openEditPlaylistPanel, fetchDeleteSongFromPlaylist } from './nav.js';
 import { artistQueryInAlbum } from './newAlbum.js';
 import { getArtistFromURL } from './editAlbum.js';
 import { oneSongLoad, oneAlbumLoad, onePlaylistLoad } from './player.js';
 
+// use 'isPopState' to check if the page is loaded by..
+// 1. back / forward button (window.onpopstate)
+// 2. normal navigating through each pages ('click', () =>)
+// so we won't fire history.pushState all the time and destroy our history state
 
-//This function automatically fetch if pathname is /index
+// the first time a page is loaded we have to check first where are we right now
 if(location.pathname == '/home') {
-    fetchMyDocument();
+    fetchStart();
 } else {
+    //if we are outside of '/home' we have to add ALL eventListener because we don't know where we are
     addAllListener();
 }
 
-async function fetchMyDocument() {      
+async function fetchStart() {      
     try {
         let response = await fetch('/fetch/home');
         document.querySelector('#main').innerHTML = ''; 
         document.querySelector('#main').innerHTML = await response.text(); 
+        //need to check if null first because normal user won't find thsese button
         const newSong =  document.querySelector('#newSong');
         if(newSong) {
             newSong.addEventListener('click', function(){
@@ -68,6 +69,7 @@ async function fetchMyDocument() {
                 onePlaylistLoad(this.getAttribute('data-id'));
             });   
         });
+        //find all fav button that have the same id of the one that user just click and change their color
         const favBtn = document.querySelectorAll('#favourite');
         favBtn.forEach(elem => {
             elem.addEventListener('click', function(){
@@ -393,6 +395,7 @@ function addAllListener() {
     let openPlaylistPanelBtn = document.querySelectorAll('#openPlaylistPanel');
     let editProfile = document.querySelector('#editProfile');
 
+    //we do if() first because we can't addEventListener on null
     if(newSong) { newSong.addEventListener('click', fetchNewSong('false')); }
     if(viewSong) {
         viewSong.forEach(elem => {
@@ -511,10 +514,8 @@ function addAllListener() {
 }
 
 window.onpopstate = function(e) {
-    // alert("location: " + document.location + ", state: " + JSON.stringify(event.state))
-    
     if(e.state == null) {
-        fetchMyDocument('true');
+        fetchStart('true');
     } else {
         let state = e.state.split('/');
         console.log(state);
@@ -554,7 +555,7 @@ window.onpopstate = function(e) {
     }
   };
 
-export { fetchMyDocument };
+export { fetchStart };
 export { fetchViewSong };
 export { fetchViewAlbum };
 export { fetchViewArtist };

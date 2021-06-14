@@ -12,12 +12,8 @@ function search() {
         const typeSelect = inputField.querySelector('#type');
         const sortSelect = inputField.querySelector('#sort');
         const outputField = searchPage.querySelector('#outputField');
-        const songField = outputField.querySelector('#song');
-        const artistField = outputField.querySelector('#artist');
-        const albumField = outputField.querySelector('#album');
 
         searchBtn.addEventListener('click', async function(){
-            // deleteAllChild(songField, artistField, albumField);
             if(searchField.value) {
                 if(typeSelect.value == 'song') {
                     await getSong(searchField.value, sortSelect.value);            
@@ -33,18 +29,6 @@ function search() {
                 addAllListener();
             }
         });
-    }
-}
-
-function deleteAllChild(songField, artistField, albumField) {
-    while(songField.firstChild) {
-        songField.removeChild(songField.lastChild);
-    }
-    while(artistField.firstChild) {
-        artistField.removeChild(artistField.lastChild);
-    }
-    while(albumField.firstChild) {
-        albumField.removeChild(albumField.lastChild);
     }
 }
 

@@ -1,0 +1,26 @@
+li {
+    list-style-type: none;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.logo {
+    font-family: 'Major Mono Display';
+}
+
+.welcome-navbar {
+    background-color: white;
+}
+
+.welcome-navbar nav {
+    display: flex;
+    flex-grow: 1;
+    height: 50px;
+    align-items: center;
+    padding-left: 1em;
+    gap: 1em;
+}

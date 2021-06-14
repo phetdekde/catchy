@@ -28,7 +28,7 @@ router.get('/search', middleware.isLoggedIn, function(req, res){
 router.get('/allplaylist/:userId', middleware.isLoggedIn, async function(req, res){
     const foundPlaylist = await Playlist.find({author: req.params.userId}).exec();
     const owner = await User.findById(req.params.userId).select('_id username').exec();
-    res.render('index/collection/showAllPlaylist.ejs', {url: 'showAllPlaylist', playlist: foundPlaylist, user: owner});
+    res.render('index/collection/playlist/showAllPlaylist.ejs', {playlist: foundPlaylist, user: owner});
 });
 
 router.get('/playlist/:playlistId', middleware.isLoggedIn, function(req, res){
@@ -54,7 +54,7 @@ router.get('/playlist/:playlistId', middleware.isLoggedIn, function(req, res){
         if(err) {
             console.log(err);
         } else {
-            res.render('index/collection/showPlaylist.ejs', {playlist: foundPlaylist});
+            res.render('index/collection/playlist/showPlaylist.ejs', {playlist: foundPlaylist});
         }
     });
 });
@@ -62,7 +62,7 @@ router.get('/playlist/:playlistId', middleware.isLoggedIn, function(req, res){
 router.get('/user/:id', middleware.isLoggedIn, async function(req, res){
     const foundUser = await User.findById(req.params.id).exec();
     const favSong = await Song.find({_id: foundUser.favSong}).populate({path: 'artist', models: 'Artist', select: '_id artistName'}).sort({_id: -1}).exec();
-    res.render('index/user/showProfile.ejs', {user: foundUser, song: favSong});
+    res.render('index/collection/showProfile.ejs', {user: foundUser, song: favSong});
 });
         
 router.get('/song/new', middleware.isLoggedIn, function(req, res){

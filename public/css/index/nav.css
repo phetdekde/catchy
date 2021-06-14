@@ -1,0 +1,157 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background: white;
+    padding: 1rem;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+}
+
+.navbar .logo {
+    font-family: 'Major Mono Display';
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.navbar .container {
+    display: flex;
+    place-content: space-between;
+    flex-grow: 1;
+}
+
+.navbar .mobile-menu {
+    cursor: pointer;
+    width: 1rem;
+}
+
+.navbar nav {
+    width: 66%;
+    height: 100vh;
+    top: 0;
+    left: -450px;
+    overflow:hidden;
+    background-color: black;
+    position: fixed;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+}
+
+nav.menu-btn {
+    left: 0;
+}
+
+.mobile-menu-exit {
+    background: white;
+    width: 1rem;
+    padding: .25em;
+    border-radius: 5em;
+    display: block;
+    margin: .5em;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.navbar .wrapper-nav {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+}
+
+.navbar nav .primary-nav {
+    margin-top: 1em;
+}
+
+.navbar nav .secondary-nav {
+    margin-top: auto;
+    margin-bottom: 5em;
+}
+
+.navbar nav li a, .navbar nav li p {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 1em .5em;
+    font-size: 1.3em;
+    text-align: right;
+    margin: 0;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 650px) {
+    .navbar {
+        overflow-y: auto;
+        box-sizing: border-box;
+        height: calc(100% - 80px);
+        background-color: rgb(51, 51, 51);
+        position: fixed;
+        left: 0; 
+        width: 250px;
+        color: white;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .mobile-menu, .mobile-menu-exit {
+        display: none;
+    }
+
+    .navbar .container {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .navbar nav {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        background: none;
+        position: unset;
+        height: auto;
+        padding-top: 2rem;
+    }
+
+    .navbar .wrapper-nav {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        width: 100%;
+    }
+
+    .navbar nav ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar nav ul a, .navbar nav ul p {
+        font-size: 1em;
+        padding: 2rem 0 0 0;
+        margin: 0;
+        text-align: left;
+    }
+
+    .navbar nav ul.primary-nav {
+        margin-top: 0;
+    }
+
+    .navbar nav ul.secondary-nav {
+        margin-bottom: 0;
+        margin-top: auto;
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+    .navbar {
+        width: 250px;
+    }
+}

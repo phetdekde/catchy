@@ -37,7 +37,6 @@ section.player {
 }
 
 .player .left .song-info {
-    /* height: 100%; */
     min-width: 0px;
     margin-top: auto;
     margin-bottom: auto;

@@ -2,7 +2,6 @@ const   express = require('express'),
         router = express.Router(),
         multer = require('multer'),
         path = require('path'),
-        passport = require('passport'),
         storage = multer.diskStorage({
             destination: function(req, file, callback){
                 var destPath = './public/uploads/images';

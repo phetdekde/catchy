@@ -47,16 +47,14 @@ router.post('/', upload.any([{name: 'songImg'}, {name: 'songFile'}]), function(r
                     req.flash('error', 'Artist not found!');
                     res.redirect('/song/new');
                 } else {
-                    console.log("Found artist==========\n" + foundArtist);
+                    console.log("Found artist: " + foundArtist.artistName);
                     req.body.song.songImg = '/uploads/images/' + req.files[0].filename;
                     req.body.song.songFile = '/uploads/songs/' + req.files[1].filename;
                     Song.create(req.body.song, function(err, createdSong){
                         if(err) {
                             console.log(err);
-                            req.flash('error', err);
-                            res.redirect('/song/new');
                         } else {
-                            console.log('New song created==========\n' + createdSong);
+                            console.log('==========Song created==========\n' + createdSong);
                             createdSong.artist = foundArtist._id;
                             createdSong.save();
                             foundArtist.song.push(createdSong._id);
@@ -72,7 +70,6 @@ router.post('/', upload.any([{name: 'songImg'}, {name: 'songFile'}]), function(r
 
 router.get('/new', middleware.isLoggedIn, function(req, res){
     res.render('index/index.ejs', {url: 'newSong'});
-    // res.render('collections/new.ejs');
 });
 
 router.get('/:id', middleware.isLoggedIn, function(req, res){
@@ -85,7 +82,7 @@ router.get('/:id', middleware.isLoggedIn, function(req, res){
     });
 });
 
-router.get('/:id/edit', function(req, res){
+router.get('/:id/edit', middleware.isLoggedIn, function(req, res){
     Song.findById(req.params.id).populate('artist').exec(function(err, foundSong){
         if(err) {
             console.log(err);
@@ -105,12 +102,11 @@ router.put('/:id', upload.any([{name: 'songImg'}, {name: 'songFile'}]), function
             }
         }
     });
-
     Song.findByIdAndUpdate(req.params.id, req.body.song, function(err, updatedSong){
         if(err) {
-            req.flash('error', err);
-            res.redirect('/home');
+            console.log(err);
         } else {
+            console.log('Song updated');
             res.redirect('/song/' + req.params.id); 
         }
     });
@@ -118,11 +114,12 @@ router.put('/:id', upload.any([{name: 'songImg'}, {name: 'songFile'}]), function
 
 router.delete('/:id', async function(req, res){
     const deletedSong = await Song.findByIdAndRemove(req.params.id).exec();
+    console.log('==========Deleted song==========\n' + deletedSong);
     await Artist.findByIdAndUpdate(deletedSong.artist, {$pull: {song: deletedSong._id}}).exec();
     await Album.findByIdAndUpdate(deletedSong.album, {$pull: {song: deletedSong._id}}).exec();
     await User.updateMany({_id: deletedSong.favBy}, {$pull: {favSong: deletedSong._id}}).exec();
     await Playlist.updateMany({}, {$pull: {song: deletedSong._id}}).exec();
-    console.log('==========Delete song==========\n' + deletedSong);
+    console.log('Pulled song from artist / album / favourite / playlist');
     res.redirect('/home');
 });
 

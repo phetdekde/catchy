@@ -1,17 +1,19 @@
 <p>Album</p>
-<div class="collection">
-    <% album.forEach(function(album){ %>
-        <div class='content'>
-            <div class="song-info">
-                <img src='<%= album.albumImg %>'>
-                <div class="song-artist">
-                    <p id="viewAlbum" class="link" data-id="<%= album._id %>"><%= album.albumName %></p>
-                    <p id="viewArtist" class="link" data-id="<%= album.artist._id %>"><%= album.artist.artistName %></p>
+<div class="linear-display">
+    <div class="collection">
+        <% album.forEach(function(album){ %>
+            <div class='content'>
+                <div class="song-info">
+                    <img src='<%= album.albumImg %>'>
+                    <div class="song-artist">
+                        <p id="viewAlbum" class="link" data-id="<%= album._id %>"><%= album.albumName %></p>
+                        <p id="viewArtist" class="link" data-id="<%= album.artist._id %>"><%= album.artist.artistName %></p>
+                    </div>
                 </div>
-            </div>
-            <ul>
-                <li><img id="playOneAlbum" class="play-btn" data-id="<%= album._id %>" src="/images/play.png" alt="Play album"></li>
-            </ul>
-        </div>  
-    <% }); %>
+                <ul>
+                    <li><img id="playOneAlbum" class="play-btn" data-id="<%= album._id %>" src="/images/play.png" alt="Play album"></li>
+                </ul>
+            </div>  
+        <% }); %>
+    </div>
 </div>

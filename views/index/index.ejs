@@ -1,23 +1,18 @@
 <%- include('../partials/header.ejs') %>
 
-<link rel="stylesheet" href="/css/index/home.css">
 <link rel="stylesheet" href="/css/index/index.css">
-<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/index/home.css">
+<link rel="stylesheet" href="/css/index/nav.css">
 <link rel="stylesheet" href="/css/index/player.css">
-<link rel="stylesheet" href="/css/index/main.css">
+<link rel="stylesheet" href="/css/index/search.css">
+<link rel="stylesheet" href="/css/index/section.css">
 <link rel="stylesheet" href="/css/index/showProfile.css">
-<link rel="stylesheet" href="/css/index/showSong.css">
-<link rel="stylesheet" href="/css/index/newSong.css">
-<link rel="stylesheet" href="/css/index/editSong.css">
-<link rel="stylesheet" href="/css/index/showArtist.css">
-<link rel="stylesheet" href="/css/index/newArtist.css">
-<link rel="stylesheet" href="/css/index/editArtist.css">
-<link rel="stylesheet" href="/css/index/showAlbum.css">
+<link rel="stylesheet" href="/css/index/addDataPage.css">
 <link rel="stylesheet" href="/css/index/newAlbum.css">
-<link rel="stylesheet" href="/css/index/editAlbum.css">
+<link rel="stylesheet" href="/css/index/editPage.css">
+<link rel="stylesheet" href="/css/index/showPage.css">
 <link rel="stylesheet" href="/css/index/showPlaylist.css">
 <link rel="stylesheet" href="/css/index/showAllPlaylist.css">
-<link rel="stylesheet" href="/css/index/search.css">
 <script type="module" defer src="/javascript/nav.js"></script>
 <script type="module" defer src="/javascript/index.js"></script>
 <script type="module" defer src="/javascript/player.js"></script>
@@ -40,19 +35,17 @@
     <% } else if(url == 'search') { %>
         <%- include('collection/search.ejs') %>
     <% } else if(url == 'showProfile') { %>
-        <%- include('user/showProfile.ejs') %>
+        <%- include('collection/showProfile.ejs') %>
     <% } else if(url == 'showAllPlaylist') { %>
-        <%- include('collection/showAllPlaylist.ejs') %>
+        <%- include('collection/playlist/showAllPlaylist.ejs') %>
     <% } else if(url == 'showPlaylist') { %>
-        <%- include('collection/showPlaylist.ejs') %>
+        <%- include('collection/playlist/showPlaylist.ejs') %>
     <% } else if(url == 'newSong') { %>
         <%- include('collection/song/newSong.ejs') %>
     <% } else if(url == 'showSong') { %>
         <%- include('collection/song/showSong.ejs') %>
     <% } else if(url == 'editSong') { %>
         <%- include('collection/song/editSong.ejs') %>
-    <% } else if(url == 'showUser') { %>
-        <%- include('user/show.ejs') %>
     <% } else if(url == 'newArtist') { %>
         <%- include('collection/artist/newArtist.ejs') %>
     <% } else if(url == 'showArtist') { %>
@@ -63,8 +56,6 @@
         <%- include('collection/album/newAlbum.ejs') %>
     <% } else if(url == 'viewAlbum') { %>
         <%- include('collection/album/showAlbum.ejs') %>
-    <% } else if(url == 'editAlbum') { %>
-        <%- include('collection/album/editAlbum.ejs') %>
     <% } else if(url == 'editAlbum') { %>
         <%- include('collection/album/editAlbum.ejs') %>
     <% } %>

@@ -1,13 +1,15 @@
 <p>Artist</p>
-<div class="collection">
-    <% artist.forEach(function(artist){ %>
-        <div class='content'>
-            <div class="song-info">
-                <img src='<%= artist.artistImg %>'>
-                <div class="song-artist">
-                    <p id="viewArtist" class="link" data-id="<%= artist._id %>"><%= artist.artistName %></p>
+<div class="linear-display">
+    <div class="collection">
+        <% artist.forEach(function(artist){ %>
+            <div class='content'>
+                <div class="song-info">
+                    <img src='<%= artist.artistImg %>'>
+                    <div class="song-artist">
+                        <p id="viewArtist" class="link" data-id="<%= artist._id %>"><%= artist.artistName %></p>
+                    </div>
                 </div>
-            </div>
-        </div>  
-    <% }); %>
+            </div>  
+        <% }); %>
+    </div>
 </div>

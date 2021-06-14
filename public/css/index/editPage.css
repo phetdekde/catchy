@@ -1,0 +1,19 @@
+.edit .container form > * {
+    margin-bottom: 1rem;
+}
+
+.edit .container input[type="text"] {
+    padding: 0.5rem;
+    width: 500px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.edit img {
+    width: 336px;
+    max-width: 100%;
+}
+
+.edit input {
+    padding: 0.5rem;
+}
