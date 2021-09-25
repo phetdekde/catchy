@@ -19,7 +19,7 @@ const   homeRoutes = require('./routes/home.js'),
         databaseRoutes = require('./routes/database.js');
 
 mongoose.connect('mongodb://localhost/catchy', {useNewUrlParser: true, useUnifiedTopology: true})
-    .then((result) => app.listen(14923, function(){ console.log('Server started'); }))
+    .then((result) => app.listen(3000, function(){ console.log('Server started'); }))
     .catch((err) => console.log(err));    
 
 app.use(express.static('public'));
