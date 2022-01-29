@@ -1,4 +1,4 @@
-![Preview](/catchy image.png)
+![Preview](catchy image.png)
 
 # Subject
 Web programming
