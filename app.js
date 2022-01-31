@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
 app.use(flash());
-// seedDB();
+seedDB();
 
 app.use(require('express-session')({
     secret: 'secret is always secret.',
